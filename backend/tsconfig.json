@@ -3,31 +3,30 @@
     // Paths
     "rootDir": "./src",
     "outDir": "./dist",
-
     // Environment
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "lib": ["ES2022"],
     "types": ["node"],
-
     // Interop & Imports
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-
     // Strictness
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
     // Source maps & declarations (optional for prod)
     "sourceMap": true,
     "declaration": true,
     "declarationMap": false,
-
     // Misc
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
