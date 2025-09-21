@@ -16,10 +16,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import ServiceCard from "@/components/ServiceCard";
+import Navigation from "@/components/Navigation";
 
 const heroImage = "/hero-image.jpg";
 
-const Landing = () => {
+const CustomerLanding = () => {
   const services = [
     {
       id: "1",
@@ -121,10 +122,11 @@ const Landing = () => {
       description: "Pay safely through our platform after service completion.",
     },
   ];
-
+  
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
+      <Navigation/>
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-90"></div>
         <div className="absolute inset-0">
@@ -134,7 +136,7 @@ const Landing = () => {
             fill
             priority
             className="object-cover object-center"
-          />
+            />
         </div>
         <div className="absolute inset-0 bg-black/20"></div>
 
@@ -335,4 +337,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default CustomerLanding;

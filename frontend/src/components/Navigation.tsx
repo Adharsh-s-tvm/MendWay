@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, Search, Bell } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X, User, Search, Bell } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'Workers', path: '/workers' },
-    { name: 'Bookings', path: '/bookings' },
-    { name: 'Payments', path: '/payments' },
-    { name: 'Meetings', path: '/meetings' },
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "Workers", path: "/workers" },
+    { name: "Bookings", path: "/bookings" },
+    { name: "Payments", path: "/payments" },
+    { name: "Meetings", path: "/meetings" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="sticky top-0 z-50 glass border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
+          <Link href="/" className="flex items-center space-x-2 group">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">W</span>
             </div>
@@ -44,11 +47,11 @@ const Navigation = () => {
             {navItems.map((item) => (
               <Link
                 key={item.path}
-                to={item.path}
+                href={item.path}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all hover-lift ${
                   isActive(item.path)
-                    ? 'bg-primary text-primary-foreground shadow-custom-md'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                    ? "bg-primary text-primary-foreground shadow-custom-md"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 {item.name}
@@ -72,7 +75,10 @@ const Navigation = () => {
             {/* Profile Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-9 w-9 rounded-full hover-lift">
+                <Button
+                  variant="ghost"
+                  className="relative h-9 w-9 rounded-full hover-lift"
+                >
                   <Avatar className="h-9 w-9">
                     <AvatarImage src="/placeholder-avatar.jpg" alt="Profile" />
                     <AvatarFallback className="bg-gradient-primary text-white">
@@ -83,12 +89,12 @@ const Navigation = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 mt-2" align="end">
                 <DropdownMenuItem asChild>
-                  <Link to="/profile" className="cursor-pointer">
+                  <Link href="/profile" className="cursor-pointer">
                     Edit Profile
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/settings" className="cursor-pointer">
+                  <Link href="/settings" className="cursor-pointer">
                     Settings
                   </Link>
                 </DropdownMenuItem>
@@ -119,12 +125,12 @@ const Navigation = () => {
               {navItems.map((item) => (
                 <Link
                   key={item.path}
-                  to={item.path}
+                  href={item.path}
                   onClick={() => setIsOpen(false)}
                   className={`px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     isActive(item.path)
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
                   {item.name}
@@ -132,7 +138,7 @@ const Navigation = () => {
               ))}
               <div className="border-t pt-4 mt-4">
                 <Link
-                  to="/profile"
+                  href="/profile"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg"
                 >
