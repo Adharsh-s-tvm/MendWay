@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import ServiceCard from "@/components/ServiceCard";
 
-// Move hero-image.jpg into /public directory in Next.js
 const heroImage = "/hero-image.jpg";
 
 const Landing = () => {
