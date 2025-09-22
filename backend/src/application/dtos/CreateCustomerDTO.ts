@@ -4,4 +4,4 @@ export interface CreateCustomerDTO{
     phone:string;
     passwordHash: string;
     loginMethod: 'googleauthentication' | 'email';
-}
+}                           
