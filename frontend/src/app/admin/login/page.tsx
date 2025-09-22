@@ -7,10 +7,16 @@ import { Button } from "@/components/ui/enhanced-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Shield, Mail, Lock } from "lucide-react";
 
-export default function Login() {
+export default function AdminLogin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +40,9 @@ export default function Login() {
             <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
           </div>
         </div>
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">ServicePro Admin</h1>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
+          Mend-Way Admin
+        </h1>
         <p className="text-sm sm:text-base text-foreground-muted mt-2">
           Professional service management platform
         </p>
@@ -43,7 +51,9 @@ export default function Login() {
       {/* Login Form */}
       <Card className="w-full max-w-sm sm:max-w-md shadow-xl border-border-subtle">
         <CardHeader className="text-center space-y-2 pb-4 sm:pb-6">
-          <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">Admin Login</CardTitle>
+          <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+            Admin Login
+          </CardTitle>
           <CardDescription className="text-foreground-muted text-sm sm:text-base">
             Access your admin dashboard securely
           </CardDescription>
@@ -52,7 +62,10 @@ export default function Login() {
         <CardContent className="p-4 sm:p-6">
           <form onSubmit={handleLogin} className="space-y-4 sm:space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground font-medium text-sm sm:text-base">
+              <Label
+                htmlFor="email"
+                className="text-foreground font-medium text-sm sm:text-base"
+              >
                 Email Address
               </Label>
               <div className="relative">
@@ -70,7 +83,10 @@ export default function Login() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-foreground font-medium text-sm sm:text-base">
+              <Label
+                htmlFor="password"
+                className="text-foreground font-medium text-sm sm:text-base"
+              >
                 Password
               </Label>
               <div className="relative">
@@ -95,7 +111,10 @@ export default function Login() {
                   onCheckedChange={(checked) => setRememberMe(!!checked)}
                   className="border-border-subtle"
                 />
-                <Label htmlFor="remember" className="text-xs sm:text-sm text-foreground-muted cursor-pointer">
+                <Label
+                  htmlFor="remember"
+                  className="text-xs sm:text-sm text-foreground-muted cursor-pointer"
+                >
                   Remember me
                 </Label>
               </div>
@@ -126,7 +145,7 @@ export default function Login() {
 
       {/* Footer */}
       <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-foreground-subtle">
-        <p>ServicePro Admin Portal © 2024</p>
+        <p>Mend-Way Admin Portal © 2024</p>
       </div>
     </div>
   );

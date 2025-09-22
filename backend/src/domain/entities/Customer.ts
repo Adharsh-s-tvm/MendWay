@@ -1,12 +1,12 @@
 export enum UserRole {
   Customer = 'customer',
-  Worker   = 'worker',
-  Admin    = 'admin'
+  Worker = 'worker',
+  Admin = 'admin'
 }
 
 export enum UserLoginMethod {
   GoogleAuthentication = 'googleauthentication',
-  Email                = 'email'
+  Email = 'email'
 }
 
 export class CustomerEntity {
@@ -35,18 +35,18 @@ export class CustomerEntity {
     createdAt?: Date;
     updatedAt?: Date;
   }) {
-    this.id          = props.id;
-    this.name        = props.name;
-    this.email       = props.email;
-    this.phone       = props.phone;
-    this.passwordHash= props.passwordHash;
-    this.isBlocked   = props.isBlocked ?? false;
-    this.role        = props.role ?? UserRole.Customer;
+    this.id = props.id;
+    this.name = props.name;
+    this.email = props.email;
+    this.phone = props.phone ?? null;
+    this.passwordHash = props.passwordHash;
+    this.isBlocked = props.isBlocked ?? false;
+    this.role = props.role ?? UserRole.Customer;
     this.loginMethod = props.loginMethod;
-    const now        = new Date();
-    this.lastLogin   = props.lastLogin ?? now;
-    this.createdAt   = props.createdAt ?? now;
-    this.updatedAt   = props.updatedAt ?? now;
+    const now = new Date();
+    this.lastLogin = props.lastLogin ?? now;
+    this.createdAt = props.createdAt ?? now;
+    this.updatedAt = props.updatedAt ?? now;
   }
 
   block(): void {
