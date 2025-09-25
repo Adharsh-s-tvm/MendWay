@@ -1,6 +1,6 @@
 import express from 'express';
-import customerRoutes from "../http/routes/customerRoutes.js";
-import connectDB from '../../infrastructure/db/mongo/mongoClient.js';
+import customerRoutes from "../routes/customerRoutes.js";
+import connectDB from '../../infrastructure/db/mongoClient.js';
 
 export async function createServer() {
     await connectDB();

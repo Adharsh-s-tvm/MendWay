@@ -1,8 +1,8 @@
-import { ICustomerRepository } from "../../domain/repositories/IUserRepository.js";
-import { CustomerEntity } from "../../domain/entities/Customer.js";
-import { CustomerModel } from "./models/CustomerModel.js";
+import { ICustomerRepository } from "../../../domain/repositories/IUserRepository.js";
+import { CustomerEntity } from "../../../domain/entities/Customer.js";
+import { CustomerModel } from "../models/CustomerModel.js";
 
-export class MongoCustomerRepository implements ICustomerRepository {
+export class CustomerRepository implements ICustomerRepository {
     async create(customer : CustomerEntity) : Promise <CustomerEntity> {
         await CustomerModel.create({...customer});
         return customer;

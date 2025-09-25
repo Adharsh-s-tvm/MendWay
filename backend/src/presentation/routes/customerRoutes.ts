@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { MongoCustomerRepository } from "../../../infrastructure/db/mongo/MongoCustomerRepository.js";
-import { CreateCustomerUseCase } from "../../../application/use-cases/CreateCustomerUseCase.js";
-import { GetCustomerByEmailUseCase } from "../../../application/use-cases/GetCustomerByEmailUseCase.js";
+import { CustomerRepository } from "../../infrastructure/db/repo/CustomerRepository.js";
+import { CreateCustomerUseCase } from "../../application/use-cases/CreateCustomerUseCase.js";
+import { GetCustomerByEmailUseCase } from "../../application/use-cases/GetCustomerByEmailUseCase.js";
 import { CustomerController } from "../controllers/CustomerController.js";
 
-const repo = new MongoCustomerRepository();
+const repo = new CustomerRepository();
 
 const controller = new CustomerController(
     new CreateCustomerUseCase(repo),
