@@ -1,15 +1,15 @@
-import { ICustomerRepository } from "../../../domain/repositories/IUserRepository.js";
-import { CustomerEntity } from "../../../domain/entities/Customer.js";
+import { ICustomerRepository } from "../../../domain/repositories/ICustomerRepository.js";
+import { Customer } from "../../../domain/entities/Customer.js";
 import { CustomerModel } from "../models/CustomerModel.js";
 
 export class CustomerRepository implements ICustomerRepository {
-    async create(customer : CustomerEntity) : Promise <CustomerEntity> {
+    async create(customer : Customer) : Promise <Customer> {
         await CustomerModel.create({...customer});
         return customer;
     }
 
-    async findByEmail(email: string): Promise<CustomerEntity | null> {
+    async findByEmail(email: string): Promise<Customer | null> {
         const doc = await CustomerModel.findOne({email}).lean();
-        return doc ? new CustomerEntity(doc as any ): null;
+        return doc ? new CustomerModel(doc as any ): null;
     }
 }
