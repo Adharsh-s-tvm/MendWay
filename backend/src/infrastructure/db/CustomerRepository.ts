@@ -1,5 +1,5 @@
-import { ICustomerRepository } from "../../../domain/repositories/IUserRepository.js";
-import { CustomerEntity } from "../../../domain/entities/Customer.js";
+import { ICustomerRepository } from "../../domain/repositories/IUserRepository.js";
+import { CustomerEntity } from "../../domain/entities/Customer.js";
 import { CustomerModel } from "./models/CustomerModel.js";
 
 export class MongoCustomerRepository implements ICustomerRepository {
