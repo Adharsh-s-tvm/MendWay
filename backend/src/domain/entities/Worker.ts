@@ -4,7 +4,7 @@ export interface Worker {
     workerId:string,
     name:string,
     email:string,
-    password:string,
+    passwordHash?:string,
     phone:number,
     role: Role.WORKER,
     skills: string[],
