@@ -12,6 +12,9 @@ import { createCustomerRoutes } from "./presentation/routes/authRoutes";
 
 dotenv.config();
 
+console.log("Loaded ENV:", process.env.MONGO_URI, process.env.PORT);
+
+
 async function bootstrap() {
   const app = express();
   app.use(express.json());
