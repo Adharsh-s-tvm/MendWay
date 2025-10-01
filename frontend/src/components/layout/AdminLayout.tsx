@@ -11,11 +11,12 @@ import {
   UserCheck,
   Briefcase,
   CreditCard,
-  MessageSquare,0
+  MessageSquare,
   Wallet,
   User,
   Menu,
   LogOut,
+  Shield, 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
