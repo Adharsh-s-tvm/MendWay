@@ -12,6 +12,7 @@ export class CustomerController {
     async register(req: Request, res: Response) {
         try {
             const user = await this.registerCustomer.execute(req.body);
+            console.log('Req body: ', req.body)
             res.status(HttpStatusCode.CREATED).json(user);
         } catch (error: any) {
             res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message })
