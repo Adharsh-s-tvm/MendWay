@@ -10,7 +10,8 @@ import { RegisterCustomerUseCase } from "./application/use-cases/RegisterCustome
 import { LoginCustomerUseCase } from "./application/use-cases/LoginCustomerUseCase";
 import { CustomerController } from "./presentation/controllers/CustomerController";
 import { createCustomerRoutes } from "./presentation/routes/authRoutes";
-import { errorHandler } from "./presentation/middlewares/errorHandler";
+import { errorHandler } from "./presentation/middlewares/ErrorHandler";
+import { JwtTokenService } from "./infrastructure/utils/JwtTokenService";
 
 dotenv.config();
 
@@ -30,10 +31,16 @@ async function bootstrap() {
   const repo = new CustomerRepository(CustomerModel);
   const passwordHasher = new BcryptPasswordHasher();
   const idGenerator = new UUIDGenerator();
-
+ 
+  //jwt
+  const tokenService = new JwtTokenService(
+    process.env.ACCESS_TOKEN_SECRET!,
+    process.env.REFRESH_TOKEN_SECRET!,
+  )
+  
   // Application
-  const registerUseCase = new RegisterCustomerUseCase(repo, passwordHasher, idGenerator);
-  const loginUseCase = new LoginCustomerUseCase(repo, passwordHasher);
+  const registerUseCase = new RegisterCustomerUseCase(repo, passwordHasher, idGenerator, tokenService);
+  const loginUseCase = new LoginCustomerUseCase(repo, passwordHasher, tokenService);
 
   // Presentation
   const customerController = new CustomerController(registerUseCase, loginUseCase);

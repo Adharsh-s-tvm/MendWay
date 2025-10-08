@@ -2,14 +2,18 @@ import { ICustomerRepository } from "../../domain/repositories/ICustomerReposito
 import { LoginUserDTO, UserResponseDTO } from "../dtos/UserDTO";
 import { userMapper } from "../mappers/UserMapper";
 import { IPasswordHasher } from "../services/IPasswordHasher";
+import { ITokenService } from "../services/ITokenService";
 
 export class LoginCustomerUseCase {
     constructor(
         private readonly customerRepository: ICustomerRepository,
         private readonly passwordHasher: IPasswordHasher,
+        private readonly tokenService: ITokenService
     ) { }
 
-    async execute(userLoginData: LoginUserDTO): Promise<{ user: UserResponseDTO }> {
+    async execute(userLoginData: LoginUserDTO): Promise<{
+        user: UserResponseDTO; accessToken: string; refreshToken: string;
+    }> {
         const { email_address, password } = userLoginData;
 
         const user = await this.customerRepository.findByEmail(email_address);
@@ -31,7 +35,16 @@ export class LoginCustomerUseCase {
 
         const userResponse = userMapper.toResponseDTO(user);
 
-        return { user: userResponse }
+        const accessToken = this.tokenService.generateAccessToken({id: user.customerId, email : user.email, role :user.role });
+        const refreshToken = this.tokenService.generateRefreshToken({ id: user.customerId, email : user.email, role :user.role });
+
+        console.log("Access Token: ", accessToken);
+        console.log("Refresh Token: ", refreshToken)
+
+        return { user: userResponse,
+            accessToken, 
+            refreshToken
+         }
     }
 }
 
