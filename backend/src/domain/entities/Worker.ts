@@ -1,4 +1,4 @@
-import { Role } from "../Enums";
+import { Role } from "../enums";
 
 export interface Worker {
     workerId:string,

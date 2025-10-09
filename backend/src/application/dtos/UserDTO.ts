@@ -1,4 +1,4 @@
-import { Role } from "../../domain/Enums";
+import { Role } from "../../domain/enums";
 
 export interface UserRequestDTO {
     user_name: string;
