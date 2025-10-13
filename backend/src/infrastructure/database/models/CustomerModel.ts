@@ -21,7 +21,7 @@ const CustomerSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-// Create the model
+
 export const CustomerModel: Model<CustomerDocument> = mongoose.model<CustomerDocument>(
   "Customer",
   CustomerSchema
