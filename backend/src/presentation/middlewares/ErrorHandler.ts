@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import { HttpStatusCode } from "../enums/httpCodes";
 
 export class AppError extends Error {
   public statusCode: number;
   public isOperational: boolean;
 
-  constructor(message: string, statusCode: number = 500, isOperational = true) {
+  constructor(message: string, statusCode: number = HttpStatusCode.INTERNAL_SERVER, isOperational = true) {
     super(message);
     this.statusCode = statusCode;
     this.isOperational = isOperational;
@@ -28,7 +29,7 @@ export function errorHandler(
   }
 
   // Handle unknown/unexpected errors
-  res.status(500).json({
+  res.status(HttpStatusCode.INTERNAL_SERVER).json({
     status: "error",
     message: err.message || "Internal server error",
   });
