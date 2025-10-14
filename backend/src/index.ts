@@ -12,6 +12,7 @@ import { CustomerController } from "./presentation/controllers/CustomerControlle
 import { createCustomerRoutes } from "./presentation/routes/authRoutes";
 import { errorHandler } from "./presentation/middlewares/ErrorHandler";
 import { JwtTokenService } from "./infrastructure/utils/JwtTokenService";
+import { IRegisterCustomerUseCase } from "./application/interfaces/IRegisterCustomerUseCase";
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ async function bootstrap() {
 
 
   // Connect to MongoDB
-  await connectDB(process.env.MONGO_URI || "mongodb://localhost:27017/clean-arch");
+  await connectDB(process.env.MONGO_URI || "mongodb://localhost:27017/MEND-WAY");
 
   // Infrastructure
   const repo = new CustomerRepository(CustomerModel);
@@ -39,7 +40,7 @@ async function bootstrap() {
   )
   
   // Application
-  const registerUseCase = new RegisterCustomerUseCase(repo, passwordHasher, idGenerator, tokenService);
+  const registerUseCase: IRegisterCustomerUseCase = new RegisterCustomerUseCase(repo, passwordHasher, idGenerator, tokenService);
   const loginUseCase = new LoginCustomerUseCase(repo, passwordHasher, tokenService);
 
   // Presentation

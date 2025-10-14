@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { RegisterCustomerUseCase } from "../../application/use-cases/RegisterCustomerUseCase";
-import { LoginCustomerUseCase } from "../../application/use-cases/LoginCustomerUseCase";
 import { HttpStatusCode } from "../enums/httpCodes";
+import { IRegisterCustomerUseCase } from "../../application/interfaces/IRegisterCustomerUseCase";
+import { ILoginCustomerUseCase } from "../../application/interfaces/ILoginCustomerUseCase";
 
 export class CustomerController {
     constructor(
-        private readonly registerCustomer: RegisterCustomerUseCase,
-        private readonly loginCustomer: LoginCustomerUseCase
+        private readonly registerCustomer: IRegisterCustomerUseCase,
+        private readonly loginCustomer: ILoginCustomerUseCase
     ) { }
 
     async register(req: Request, res: Response) {

@@ -1,10 +1,11 @@
 import { ICustomerRepository } from "../../domain/repositories/ICustomerRepository";
 import { LoginUserDTO, UserResponseDTO } from "../dtos/UserDTO";
+import { ILoginCustomerUseCase } from "../interfaces/ILoginCustomerUseCase";
 import { userMapper } from "../mappers/UserMapper";
 import { IPasswordHasher } from "../services/IPasswordHasher";
 import { ITokenService } from "../services/ITokenService";
 
-export class LoginCustomerUseCase {
+export class LoginCustomerUseCase implements ILoginCustomerUseCase {
     constructor(
         private readonly customerRepository: ICustomerRepository,
         private readonly passwordHasher: IPasswordHasher,

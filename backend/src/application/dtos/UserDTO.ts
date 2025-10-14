@@ -22,3 +22,17 @@ export interface LoginUserDTO{
     email_address: string;
     password: string;
 }    
+
+export interface LoginResponseDTO {
+    user: {
+        user_id: string;
+        user_name: string;
+        email_address: string;
+        user_role: Role;
+        phone_number?: number;
+        profileImageUrl?: string;
+        isBlocked: boolean;
+    };
+    accessToken: string;
+    refreshToken: string;
+}
