@@ -5,13 +5,13 @@ import { ILoginCustomerUseCase } from "../../application/interfaces/ILoginCustom
 
 export class CustomerController {
     constructor(
-        private readonly registerCustomer: IRegisterCustomerUseCase,
-        private readonly loginCustomer: ILoginCustomerUseCase
+        private readonly _registerCustomer: IRegisterCustomerUseCase,
+        private readonly _loginCustomer: ILoginCustomerUseCase
     ) { }
 
     async register(req: Request, res: Response) {
         try {
-            const user = await this.registerCustomer.execute(req.body);
+            const user = await this._registerCustomer.execute(req.body);
         res.status(HttpStatusCode.CREATED).json(user);
         } catch (error: any) {
             res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message })
@@ -20,7 +20,7 @@ export class CustomerController {
 
     async login(req: Request, res: Response) {
         try {
-            const result = await this.loginCustomer.execute(req.body);
+            const result = await this._loginCustomer.execute(req.body);
             res.status(HttpStatusCode.OK).json(result);
         } catch (error: any) {
             res.status(HttpStatusCode.UNAUTHORIZED).json({message: error.message});

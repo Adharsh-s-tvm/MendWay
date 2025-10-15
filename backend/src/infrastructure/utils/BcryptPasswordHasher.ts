@@ -2,10 +2,10 @@ import bcrypt from "bcryptjs";
 import { IPasswordHasher } from "../../application/services/IPasswordHasher";
 
 export class BcryptPasswordHasher implements IPasswordHasher {
-  private readonly saltRounds = 10;
+  private readonly _saltRounds = 10;
 
   async hash(password: string): Promise<string> {
-    return await bcrypt.hash(password, this.saltRounds);
+    return await bcrypt.hash(password, this._saltRounds);
   }
 
   async compare(password: string, hash: string): Promise<boolean> {

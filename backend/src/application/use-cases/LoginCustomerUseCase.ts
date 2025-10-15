@@ -7,9 +7,9 @@ import { ITokenService } from "../services/ITokenService";
 
 export class LoginCustomerUseCase implements ILoginCustomerUseCase {
     constructor(
-        private readonly customerRepository: ICustomerRepository,
-        private readonly passwordHasher: IPasswordHasher,
-        private readonly tokenService: ITokenService
+        private readonly _customerRepository: ICustomerRepository,
+        private readonly _passwordHasher: IPasswordHasher,
+        private readonly _tokenService: ITokenService
     ) { }
 
     async execute(userLoginData: LoginUserDTO): Promise<{
@@ -17,7 +17,7 @@ export class LoginCustomerUseCase implements ILoginCustomerUseCase {
     }> {
         const { email_address, password } = userLoginData;
 
-        const user = await this.customerRepository.findByEmail(email_address);
+        const user = await this._customerRepository.findByEmail(email_address);
 
         if (!user) {
             throw new Error("Invalid email or password");
@@ -30,14 +30,14 @@ export class LoginCustomerUseCase implements ILoginCustomerUseCase {
             throw new Error("User credentials are not set");
         }
 
-        const isValidPassword = await this.passwordHasher.compare(password, user.passwordhash);
+        const isValidPassword = await this._passwordHasher.compare(password, user.passwordhash);
 
         if (!isValidPassword) throw new Error("Invalid email or password");
 
         const userResponse = userMapper.toResponseDTO(user);
 
-        const accessToken = this.tokenService.generateAccessToken({id: user.customerId, email : user.email, role :user.role });
-        const refreshToken = this.tokenService.generateRefreshToken({ id: user.customerId, email : user.email, role :user.role });
+        const accessToken = this._tokenService.generateAccessToken({id: user.customerId, email : user.email, role :user.role });
+        const refreshToken = this._tokenService.generateRefreshToken({ id: user.customerId, email : user.email, role :user.role });
 
         console.log("Access Token: ", accessToken);
         console.log("Refresh Token: ", refreshToken)

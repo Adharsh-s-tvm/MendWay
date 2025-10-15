@@ -9,24 +9,24 @@ import { userMapper } from "../mappers/UserMapper";
 
 export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
   constructor(
-    private readonly customerRepository: ICustomerRepository,
-    private readonly passwordHasher: IPasswordHasher,
-    private readonly userIdGenerator: IGenerateUserID,
-    private readonly tokenService: ITokenService
+    private readonly _customerRepository: ICustomerRepository,
+    private readonly _passwordHasher: IPasswordHasher,
+    private readonly _userIdGenerator: IGenerateUserID,
+    private readonly _tokenService: ITokenService
   ) {}
 
   async execute(
     userData: UserRequestDTO
   ): Promise<{ user: UserResponseDTO; accessToken: string; refreshToken: string }> {
-    const existingUser = await this.customerRepository.findByEmail(userData.email_address);
+    const existingUser = await this._customerRepository.findByEmail(userData.email_address);
     if (existingUser) {
       throw new Error("User already exists");
     }
 
-    const hashedPassword = await this.passwordHasher.hash(userData.password);
-    const customerId = await this.userIdGenerator.create();
+    const hashedPassword = await this._passwordHasher.hash(userData.password);
+    const customerId = await this._userIdGenerator.create();
 
-    const newCustomer = await this.customerRepository.create({
+    const newCustomer = await this._customerRepository.create({
       customerId: customerId,
       name: userData.user_name,
       email: userData.email_address,
@@ -42,13 +42,13 @@ export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
 
     const userResponse = userMapper.toResponseDTO(newCustomer);
 
-    const accessToken = this.tokenService.generateAccessToken({
+    const accessToken = this._tokenService.generateAccessToken({
       id: userResponse.user_id,
       email: userResponse.email_address,
       role: userResponse.user_role,
     });
 
-    const refreshToken = this.tokenService.generateRefreshToken({
+    const refreshToken = this._tokenService.generateRefreshToken({
       id: userResponse.user_id,
       email: userResponse.email_address,
       role: userResponse.user_role,

@@ -3,23 +3,23 @@ import { ITokenService } from "../../application/services/ITokenService";
 
 export class JwtTokenService implements ITokenService {
     constructor(
-        private readonly accessSecret: string,
-        private readonly refreshSecret: string,
+        private readonly _accessSecret: string,
+        private readonly _refreshSecret: string,
     ) { }
 
     generateAccessToken(payload: object): string {
-        return jwt.sign(payload, this.accessSecret, { expiresIn: "15m" });
+        return jwt.sign(payload, this._accessSecret, { expiresIn: "15m" });
     }
 
     generateRefreshToken(payload: object): string {
-        return jwt.sign(payload, this.refreshSecret, { expiresIn: "7d" });
+        return jwt.sign(payload, this._refreshSecret, { expiresIn: "7d" });
     }
 
     verifyAccessToken(token: string) {
-        return jwt.verify(token, this.accessSecret);
+        return jwt.verify(token, this._accessSecret);
     }
 
     verifyRefreshToken(token: string): any {
-        return jwt.verify(token, this.refreshSecret)
+        return jwt.verify(token, this._refreshSecret)
     }
 }
