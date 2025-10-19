@@ -5,10 +5,10 @@ import styles from "./Signup.module.css";
 export default function SignupPage() {
   return (
     <main className={styles.container}>
-      <Link href="/signup/user" className={`${styles.panel} ${styles.userPanel}`}>
+      <Link href="/signup/client" className={`${styles.panel} ${styles.userPanel}`}>
         <div className={styles.content}>
           <User className={styles.icon} size={64} strokeWidth={1.5} />
-          <h2 className={styles.title}>Join as a User</h2>
+          <h2 className={styles.title}>Join as a Client</h2>
           <p className={styles.description}>
             Find and hire professionals for any task.
           </p>
