@@ -10,13 +10,8 @@ const axiosInstance = axios.create({
 // REQUEST INTERCEPTOR
 
 axiosInstance.interceptors.request.use(
-    (config) => {
-
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error)
-    }
+    (config) =>  config,
+    (error) => Promise.reject(error)
 );
 
 //RESPONSE INTERCEPTOR
