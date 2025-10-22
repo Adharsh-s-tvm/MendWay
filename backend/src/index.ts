@@ -13,6 +13,9 @@ import { createCustomerRoutes } from "./presentation/routes/authRoutes";
 import { errorHandler } from "./presentation/middlewares/ErrorHandler";
 import { JwtTokenService } from "./infrastructure/utils/JwtTokenService";
 import { IRegisterCustomerUseCase } from "./application/interfaces/IRegisterCustomerUseCase";
+import { GetCurrentUserUseCase } from "./application/use-cases/GetCurrentUserUseCase";
+import { AuthMiddleware } from "./presentation/middlewares/AuthMiddleware";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -22,7 +25,7 @@ async function bootstrap() {
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-
+  app.use(cookieParser());
 
 
   // Connect to MongoDB
@@ -32,19 +35,20 @@ async function bootstrap() {
   const repo = new CustomerRepository(CustomerModel);
   const passwordHasher = new BcryptPasswordHasher();
   const idGenerator = new UUIDGenerator();
- 
+
   //jwt
   const tokenService = new JwtTokenService(
     process.env.ACCESS_TOKEN_SECRET!,
     process.env.REFRESH_TOKEN_SECRET!,
   )
-  
+
   // Application
   const registerUseCase: IRegisterCustomerUseCase = new RegisterCustomerUseCase(repo, passwordHasher, idGenerator, tokenService);
   const loginUseCase = new LoginCustomerUseCase(repo, passwordHasher, tokenService);
+  const getCurrentUserUseCase = new GetCurrentUserUseCase(repo);
 
   // Presentation
-  const customerController = new CustomerController(registerUseCase, loginUseCase);
+  const customerController = new CustomerController(registerUseCase, loginUseCase, getCurrentUserUseCase, tokenService);
 
   //cors
   app.use(cors({
@@ -52,9 +56,10 @@ async function bootstrap() {
     credentials: true,
   }));
 
+  const authMiddleware = new AuthMiddleware(tokenService)
 
   // Routes
-  app.use("/api/customers", createCustomerRoutes(customerController));
+  app.use("/api/customers", createCustomerRoutes(customerController, authMiddleware));
 
   //Error Handler
   app.use(errorHandler);

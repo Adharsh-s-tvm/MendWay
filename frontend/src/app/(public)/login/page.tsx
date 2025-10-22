@@ -8,7 +8,6 @@ type Role = 'client' | 'worker' | 'admin';
 const roleConfig = {
   client: {
     icon: <User className="h-6 w-6 text-yellow-400" />,
-    // Classes for shadcn-like components
     activeTabClass: 'data-[state=active]:bg-yellow-500/20 data-[state=active]:text-yellow-200',
     buttonClass: 'bg-yellow-500 text-gray-900 hover:bg-yellow-500/90',
     focusRingClass: 'focus:ring-yellow-500',
@@ -33,7 +32,6 @@ const roleConfig = {
   },
 };
 
-// Main App Component
 const App = () => {
   const [role, setRole] = React.useState<Role>('client');
   const [email, setEmail] = React.useState('');

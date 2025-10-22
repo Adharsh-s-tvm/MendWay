@@ -21,6 +21,7 @@ export interface UserResponseDTO {
 export interface LoginUserDTO{
     email_address: string;
     password: string;
+    user_role: Role
 }    
 
 export interface LoginResponseDTO {

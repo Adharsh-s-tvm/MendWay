@@ -1,8 +1,8 @@
 import { Customer } from "../../domain/entities/Customer";
 import { UserRequestDTO, UserResponseDTO } from "../dtos/UserDTO";
 
-export class userMapper {
-    static toDomain(userData : UserRequestDTO, hashedPassword: string, customerId: string): Customer{
+export class UserMapper {
+    static toDomain(userData: UserRequestDTO, hashedPassword: string, customerId: string): Customer {
         return {
             customerId,
             name: userData.user_name,

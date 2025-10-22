@@ -5,7 +5,8 @@ import { IPasswordHasher } from "../services/IPasswordHasher";
 import { IGenerateUserID } from "../services/IGenerateUserID";
 import { ITokenService } from "../services/ITokenService";
 import { UserRequestDTO, UserResponseDTO } from "../dtos/UserDTO";
-import { userMapper } from "../mappers/UserMapper";
+import { UserMapper } from "../mappers/UserMapper";
+import { UserAlreadyExistsError } from "../../domain/errors/DomainError";
 
 export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
   constructor(
@@ -13,14 +14,14 @@ export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
     private readonly _passwordHasher: IPasswordHasher,
     private readonly _userIdGenerator: IGenerateUserID,
     private readonly _tokenService: ITokenService
-  ) {}
+  ) { }
 
   async execute(
     userData: UserRequestDTO
   ): Promise<{ user: UserResponseDTO; accessToken: string; refreshToken: string }> {
     const existingUser = await this._customerRepository.findByEmail(userData.email_address);
     if (existingUser) {
-      throw new Error("User already exists");
+      throw new UserAlreadyExistsError()
     }
 
     const hashedPassword = await this._passwordHasher.hash(userData.password);
@@ -40,7 +41,7 @@ export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
       lastLoginAt: new Date(0),
     });
 
-    const userResponse = userMapper.toResponseDTO(newCustomer);
+    const userResponse = UserMapper.toResponseDTO(newCustomer);
 
     const accessToken = this._tokenService.generateAccessToken({
       id: userResponse.user_id,

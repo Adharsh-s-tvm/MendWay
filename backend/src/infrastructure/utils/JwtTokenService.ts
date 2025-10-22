@@ -1,5 +1,7 @@
 import  jwt  from "jsonwebtoken";
 import { ITokenService } from "../../application/services/ITokenService";
+import { JwtPayload } from "../../application/types/JwtPayload";
+
 
 export class JwtTokenService implements ITokenService {
     constructor(
@@ -15,11 +17,11 @@ export class JwtTokenService implements ITokenService {
         return jwt.sign(payload, this._refreshSecret, { expiresIn: "7d" });
     }
 
-    verifyAccessToken(token: string) {
-        return jwt.verify(token, this._accessSecret);
+    verifyAccessToken(token: string): JwtPayload {
+        return jwt.verify(token, this._accessSecret) as JwtPayload;
     }
 
-    verifyRefreshToken(token: string): any {
-        return jwt.verify(token, this._refreshSecret)
+    verifyRefreshToken(token: string): JwtPayload {
+        return jwt.verify(token, this._refreshSecret) as JwtPayload;
     }
 }

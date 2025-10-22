@@ -1,7 +1,8 @@
+import { InvalidCredentialsError, UserBlockedError } from "../../domain/errors/DomainError";
 import { ICustomerRepository } from "../../domain/repositories/ICustomerRepository";
 import { LoginUserDTO, UserResponseDTO } from "../dtos/UserDTO";
 import { ILoginCustomerUseCase } from "../interfaces/ILoginCustomerUseCase";
-import { userMapper } from "../mappers/UserMapper";
+import { UserMapper } from "../mappers/UserMapper";
 import { IPasswordHasher } from "../services/IPasswordHasher";
 import { ITokenService } from "../services/ITokenService";
 
@@ -20,32 +21,33 @@ export class LoginCustomerUseCase implements ILoginCustomerUseCase {
         const user = await this._customerRepository.findByEmail(email_address);
 
         if (!user) {
-            throw new Error("Invalid email or password");
+            throw new InvalidCredentialsError();
         }
         if (user.isBlocked) {
-            throw new Error("Your account is blocked");
+            throw new UserBlockedError();
         }
 
         if (!user.passwordhash) {
-            throw new Error("User credentials are not set");
+            throw new InvalidCredentialsError();
         }
 
         const isValidPassword = await this._passwordHasher.compare(password, user.passwordhash);
 
-        if (!isValidPassword) throw new Error("Invalid email or password");
+        if (!isValidPassword) throw new InvalidCredentialsError();
 
-        const userResponse = userMapper.toResponseDTO(user);
+        const userResponse = UserMapper.toResponseDTO(user);
 
-        const accessToken = this._tokenService.generateAccessToken({id: user.customerId, email : user.email, role :user.role });
-        const refreshToken = this._tokenService.generateRefreshToken({ id: user.customerId, email : user.email, role :user.role });
+        const accessToken = this._tokenService.generateAccessToken({ id: user.customerId, email: user.email, role: user.role });
+        const refreshToken = this._tokenService.generateRefreshToken({ id: user.customerId, email: user.email, role: user.role });
 
         console.log("Access Token: ", accessToken);
         console.log("Refresh Token: ", refreshToken)
 
-        return { user: userResponse,
-            accessToken, 
+        return {
+            user: userResponse,
+            accessToken,
             refreshToken
-         }
+        }
     }
 }
 

@@ -11,7 +11,7 @@ export class AuthMiddleware {
 
     try {
       const payload = this._tokenService.verifyAccessToken(token);
-      (req as any).user = payload;
+      req.user = payload;
       next();
     } catch {
       return res.status(HttpStatusCode.FORBIDDEN).json({ message: "Invalid or expired token" });
