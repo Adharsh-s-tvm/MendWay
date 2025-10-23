@@ -15,12 +15,11 @@ const App = () => {
     });
   };
 
-  // All colors are now shades of grey (zinc)
-  const focusRingClass = "focus:ring-zinc-500"; // Generic grey focus ring
-  const buttonClass = "bg-zinc-100 text-zinc-900 hover:bg-zinc-200"; // Light grey button
+  const focusRingClass = "focus:ring-zinc-500"; 
+  const buttonClass = "bg-zinc-100 text-zinc-900 hover:bg-zinc-200"; 
   const checkboxClass =
-    "data-[state=checked]:bg-zinc-700 data-[state=checked]:text-zinc-100"; // Dark grey checkbox when checked
-  const linkClass = "text-zinc-400 hover:text-zinc-200"; // Grey link text
+    "data-[state=checked]:bg-zinc-700 data-[state=checked]:text-zinc-100"; 
+  const linkClass = "text-zinc-400 hover:text-zinc-200"; 
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-black font-sans p-4">
