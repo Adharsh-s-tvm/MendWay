@@ -29,7 +29,7 @@ async function bootstrap() {
 
 
   // Connect to MongoDB
-  await connectDB(process.env.MONGO_URI || "mongodb://localhost:27017/MEND-WAY");
+  await connectDB(process.env.MONGO_URI ?? "mongodb://localhost:27017/MEND-WAY");
 
   // Infrastructure
   const repo = new CustomerRepository(CustomerModel);
@@ -38,9 +38,10 @@ async function bootstrap() {
 
   //jwt
   const tokenService = new JwtTokenService(
-    process.env.ACCESS_TOKEN_SECRET!,
-    process.env.REFRESH_TOKEN_SECRET!,
-  )
+    process.env.ACCESS_TOKEN_SECRET ?? "default-access-secret",
+    process.env.REFRESH_TOKEN_SECRET ?? "default-refresh-secret",
+  );
+
 
   // Application
   const registerUseCase: IRegisterCustomerUseCase = new RegisterCustomerUseCase(repo, passwordHasher, idGenerator, tokenService);
@@ -65,8 +66,10 @@ async function bootstrap() {
   app.use(errorHandler);
 
   // Start server
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  const PORT = process.env.PORT ?? 3000;
+  app.listen(PORT, () => {
+    return console.log(`Server running on http://localhost:${PORT}`)
+  });
 }
 
 bootstrap();

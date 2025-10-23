@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { HttpStatusCode } from "../enums/httpCodes";
 import { IRegisterCustomerUseCase } from "../../application/interfaces/IRegisterCustomerUseCase";
 import { ILoginCustomerUseCase } from "../../application/interfaces/ILoginCustomerUseCase";
-import jwt from "jsonwebtoken";
 import { IGetCurrentUserUseCase } from "../../application/interfaces/IGetCurrentUserUseCase";
 import { ITokenService } from "../../application/services/ITokenService";
 

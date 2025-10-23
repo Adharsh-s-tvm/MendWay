@@ -9,7 +9,7 @@ export class DomainError extends Error {
 }
 
 export class AuthenticationError extends DomainError {
-  constructor(message: string = "Authentication failed") {
+  constructor(message = "Authentication failed") {
     super(message, "AUTH_ERROR");
   }
 }
