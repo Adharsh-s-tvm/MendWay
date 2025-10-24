@@ -22,6 +22,14 @@ dotenv.config();
 async function bootstrap() {
   const app = express();
 
+    app.use(
+    cors({
+      origin: process.env.FRONTEND_URL || "http://localhost:3000",
+      credentials: true, // Allow cookies
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -49,14 +57,7 @@ async function bootstrap() {
   const getCurrentUserUseCase = new GetCurrentUserUseCase(repo);
 
   // Presentation
-  const customerController = new CustomerController(registerUseCase, loginUseCase, getCurrentUserUseCase, tokenService);
-
-  //cors
-  app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  }));
-
+  const customerController = new CustomerController(registerUseCase, loginUseCase, getCurrentUserUseCase, tokenService);  
   const authMiddleware = new AuthMiddleware(tokenService)
 
   // Routes

@@ -27,6 +27,7 @@ export class CustomerController {
   async login(req: Request, res: Response) {
     try {
       const result = await this._loginCustomer.execute(req.body);
+      console.log(result);
       const { accessToken, refreshToken, user } = result;
 
       res

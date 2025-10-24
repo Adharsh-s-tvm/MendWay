@@ -14,5 +14,9 @@ export function createCustomerRoutes(
     router.get("/me", authMiddleware.handle.bind(authMiddleware), (req, res) =>
         customerController.me(req, res)
     );
+
+    router.post("/refresh", (req, res) => customerController.refresh(req, res));
+    
+    router.post("/logout", (req, res) => customerController.logout(req, res));
     return router;
 }   
