@@ -1,7 +1,7 @@
 import { Role } from "../enums";
 
-export interface Customer {
-    customerId: string,
+export interface Client {
+    clientId: string,
     name: string,
     email: string,
     phone?: number,

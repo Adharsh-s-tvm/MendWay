@@ -1,12 +1,12 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { Customer } from "../../../domain/entities/Customer";
+import { Client } from "../../../domain/entities/Client";
 
 // Extend Document for mongoose
-export interface CustomerDocument extends Customer, Document {}
+export interface ClientDocument extends Client, Document { }
 
-const CustomerSchema: Schema = new Schema(
+const ClientSchema: Schema = new Schema(
   {
-    customerId: { type: String, required: true, unique: true },
+    clientId: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: Number },
@@ -22,7 +22,7 @@ const CustomerSchema: Schema = new Schema(
 );
 
 
-export const CustomerModel: Model<CustomerDocument> = mongoose.model<CustomerDocument>(
-  "Customer",
-  CustomerSchema
+export const ClientModel: Model<ClientDocument> = mongoose.model<ClientDocument>(
+  "Client",
+  ClientSchema
 );

@@ -1,10 +1,10 @@
-import { Customer } from "../../domain/entities/Customer";
+import { Client } from "../../domain/entities/Client";
 import { UserRequestDTO, UserResponseDTO } from "../dtos/UserDTO";
 
 export class UserMapper {
-    static toDomain(userData: UserRequestDTO, hashedPassword: string, customerId: string): Customer {
+    static toDomain(userData: UserRequestDTO, hashedPassword: string, clientId: string): Client {
         return {
-            customerId,
+            clientId,
             name: userData.user_name,
             email: userData.email_address,
             passwordhash: hashedPassword,
@@ -17,15 +17,15 @@ export class UserMapper {
             updatedAt: new Date(0)
         }
     }
-    static toResponseDTO(customerData: Customer): UserResponseDTO {
+    static toResponseDTO(clientData: Client): UserResponseDTO {
         return {
-            user_id: customerData.customerId,
-            user_name: customerData.name,
-            email_address: customerData.email,
-            phone_number: customerData.phone,
-            user_role: customerData.role,
-            profileImageUrl: customerData.profilePictureUrl,
-            isBlocked: customerData.isBlocked ?? false,
+            user_id: clientData.clientId,
+            user_name: clientData.name,
+            email_address: clientData.email,
+            phone_number: clientData.phone,
+            user_role: clientData.role,
+            profileImageUrl: clientData.profilePictureUrl,
+            isBlocked: clientData.isBlocked ?? false,
         }
     }
 }

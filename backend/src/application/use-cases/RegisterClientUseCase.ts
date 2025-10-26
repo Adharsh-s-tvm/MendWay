@@ -1,16 +1,16 @@
-// src/application/use-cases/RegisterCustomerUseCase.ts
-import { IRegisterCustomerUseCase } from "../interfaces/IRegisterCustomerUseCase";
-import { ICustomerRepository } from "../../domain/repositories/ICustomerRepository";
+// src/application/use-cases/RegisterClientUseCase.ts
+import { IRegisterClientUseCase } from "../interfaces/IRegisterClientUseCase";
 import { IPasswordHasher } from "../services/IPasswordHasher";
 import { IGenerateUserID } from "../services/IGenerateUserID";
 import { ITokenService } from "../services/ITokenService";
 import { UserRequestDTO, UserResponseDTO } from "../dtos/UserDTO";
 import { UserMapper } from "../mappers/UserMapper";
 import { UserAlreadyExistsError } from "../../domain/errors/DomainError";
+import { IClientRepository } from "../../domain/repositories/ICustomerRepository";
 
-export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
+export class RegisterClientUseCase implements IRegisterClientUseCase {
   constructor(
-    private readonly _customerRepository: ICustomerRepository,
+    private readonly _clientRepository: IClientRepository,
     private readonly _passwordHasher: IPasswordHasher,
     private readonly _userIdGenerator: IGenerateUserID,
     private readonly _tokenService: ITokenService
@@ -19,16 +19,16 @@ export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
   async execute(
     userData: UserRequestDTO
   ): Promise<{ user: UserResponseDTO; accessToken: string; refreshToken: string }> {
-    const existingUser = await this._customerRepository.findByEmail(userData.email_address);
+    const existingUser = await this._clientRepository.findByEmail(userData.email_address);
     if (existingUser) {
       throw new UserAlreadyExistsError()
     }
 
     const hashedPassword = await this._passwordHasher.hash(userData.password);
-    const customerId = await this._userIdGenerator.create();
+    const clientId = await this._userIdGenerator.create();
 
-    const newCustomer = await this._customerRepository.create({
-      customerId: customerId,
+    const newClient = await this._clientRepository.create({
+      clientId: clientId,
       name: userData.user_name,
       email: userData.email_address,
       passwordhash: hashedPassword,
@@ -41,7 +41,7 @@ export class RegisterCustomerUseCase implements IRegisterCustomerUseCase {
       lastLoginAt: new Date(0),
     });
 
-    const userResponse = UserMapper.toResponseDTO(newCustomer);
+    const userResponse = UserMapper.toResponseDTO(newClient);
 
     const accessToken = this._tokenService.generateAccessToken({
       id: userResponse.user_id,

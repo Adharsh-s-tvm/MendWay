@@ -1,10 +1,10 @@
-import { UserRequestDTO, UserResponseDTO } from "../../application/dtos/UserDTO";
+import { UserRequestDTO, UserResponseDTO } from "../dtos/UserDTO";
 
 /**
- * Defines the contract for the customer registration use case.
+ * Defines the contract for the client registration use case.
  * It specifies the input and the expected output without detailing the implementation.
  */
-export interface IRegisterCustomerUseCase {
+export interface IRegisterClientUseCase {
     execute(userData: UserRequestDTO): Promise<{
         user: UserResponseDTO;
         accessToken: string;

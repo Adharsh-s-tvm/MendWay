@@ -1,5 +1,5 @@
 import { IBaseRepository } from "./IBaseRepository";
 
-export interface ICustomerRepository extends IBaseRepository {
-    
+export interface IClientRepository extends IBaseRepository {
+
 }

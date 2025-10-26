@@ -2,24 +2,32 @@
 
 import React from "react";
 import { KeyRound, AtSign, LogIn } from "lucide-react";
+import { useRouter } from "next/navigation";
+import authApi from "@/api/authApi";
 
 const App = () => {
-  const [email, setEmail] = React.useState("");
+  const [email_address, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      email,
-      password,
-    });
+    try {
+      const response = await authApi.login({ email_address, password });
+      console.log(response.data);
+      if (response.data.user.user_role == "CLIENT") {
+        router.push("/client/home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const focusRingClass = "focus:ring-zinc-500"; 
-  const buttonClass = "bg-zinc-100 text-zinc-900 hover:bg-zinc-200"; 
+  const focusRingClass = "focus:ring-zinc-500";
+  const buttonClass = "bg-zinc-100 text-zinc-900 hover:bg-zinc-200";
   const checkboxClass =
-    "data-[state=checked]:bg-zinc-700 data-[state=checked]:text-zinc-100"; 
-  const linkClass = "text-zinc-400 hover:text-zinc-200"; 
+    "data-[state=checked]:bg-zinc-700 data-[state=checked]:text-zinc-100";
+  const linkClass = "text-zinc-400 hover:text-zinc-200";
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-black font-sans p-4">
@@ -57,7 +65,7 @@ const App = () => {
                     id="email"
                     type="email"
                     required
-                    value={email}
+                    value={email_address}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
                     className={`w-full pl-9 pr-4 py-2 bg-zinc-900 border border-zinc-800 text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black ${focusRingClass}`}

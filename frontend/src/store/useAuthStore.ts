@@ -1,60 +1,48 @@
 import { create } from "zustand";
-import axiosInstance from "@/lib/axiosInstance";
+import authApi from "@/api/authApi";
 
 interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: "client" | "worker" | "admin";
+  id: string;
+  email_address: string;
+  role: string;
 }
 
 interface AuthState {
-    user: User | null;
-    isAuthenticated: boolean;
-    loading: boolean;
-    error: string | null;
-
-    // Actions
-    fetchUser: () => Promise<void>;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
+  user: User | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+  fetchUser: () => Promise<void>;
+  clearUser: () => void;
 }
-
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  loading: false,
-  error: null,
+  loading: true,
 
-  //Fetch user info 
   fetchUser: async () => {
     try {
-      set({ loading: true });
-      const res = await axiosInstance.get("/auth/me", { withCredentials: true });
-      set({ user: res.data.user, isAuthenticated: true, loading: false });
-    } catch (err) {
-      set({ user: null, isAuthenticated: false, loading: false });
+      const response = await authApi.get();
+      const apiUser = response.data.user;
+      const storeUser: User = {
+        id: apiUser.user_id,
+        email_address: apiUser.email_address,
+        role: apiUser.user_role
+      };
+      set({
+        user: storeUser,
+        isAuthenticated: true,
+        loading: false
+      })
+    } catch (error) {
+      set({
+        user: null,
+        isAuthenticated: false,
+        loading: false,
+      });
     }
   },
-
-  //Login
-  login: async (email, password) => {
-    try {
-      set({ loading: true, error: null });
-      await axiosInstance.post("/auth/login", { email, password }, { withCredentials: true });
-      const res = await axiosInstance.get("/auth/me", { withCredentials: true });
-      set({ user: res.data.user, isAuthenticated: true, loading: false });
-    } catch (err: any) {
-      set({ error: err.response?.data?.message || "Login failed", loading: false });
-    }
-  },
-
-  //Logout
-  logout: async () => {
-    try {
-      await axiosInstance.post("/auth/logout", {}, { withCredentials: true });
-    } catch {}
+  clearUser: () => {
     set({ user: null, isAuthenticated: false });
   },
-}));
+}))

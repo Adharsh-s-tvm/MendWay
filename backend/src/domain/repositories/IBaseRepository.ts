@@ -1,7 +1,7 @@
-import { Customer } from "../entities/Customer";
+import { Client } from "../entities/Client";
 
 export interface IBaseRepository {
-    findByEmail (email: string) : Promise<Customer | null>;
-    findById(id: string): Promise<Customer | null>;
-    create(user: Customer): Promise<Customer>;
+    findByEmail(email: string): Promise<Client | null>;
+    findById(id: string): Promise<Client | null>;
+    create(user: Client): Promise<Client>;
 }
