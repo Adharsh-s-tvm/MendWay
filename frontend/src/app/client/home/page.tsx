@@ -3,7 +3,9 @@
 import ClientHeader from "@/components/containers/ClientHeader";
 import { useAuthStore } from "@/store/useAuthStore";
 import type { NextPage } from "next";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { Spinner } from "@/components/ui/spinner"
 
 const Icon = ({
   children,
@@ -282,10 +284,21 @@ const howItWorksSteps = [
 
 // --- Main Page Component ---
 const HomePage: NextPage = () => {
+  const { user, isAuthenticated, loading, fetchUser } = useAuthStore();
+  const router = useRouter();
 
-  const { user, isAuthenticated } = useAuthStore();
+  useEffect(() => {
+    if (loading) fetchUser();
+  }, [loading, fetchUser]);
 
-  if(!isAuthenticated) return <p>Unauthorized</p>
+  useEffect(() => {
+    if (!loading && (!isAuthenticated || user?.role !== "CLIENT")) {
+      router.replace("/unauthorized");
+    }
+  }, [loading, isAuthenticated, user, router]);
+
+  if(loading) return <div> <Spinner className="size-6 text-yellow-500" /> </div>
+
 
   return (
     <div className="bg-gray-900 text-gray-200 font-sans">

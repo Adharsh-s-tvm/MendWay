@@ -1,14 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { use, useEffect } from "react";
 import { KeyRound, AtSign, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
 import authApi from "@/api/authApi";
+import { useAuthStore } from "@/store/useAuthStore";
 
-const App = () => {
+const LoginPage = () => {
   const [email_address, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
+
+  const { user, isAuthenticated, loading, fetchUser } = useAuthStore();
+
+  useEffect(() => {
+    if (loading) fetchUser();
+  }, [loading, fetchUser]);
+
+  useEffect(() => {
+    if (!loading && isAuthenticated && user) {
+      if (user.role === "admin") router.replace("/admin/dashboard");
+      else if (user.role === "worker") router.replace("/worker/home");
+      else router.replace("/client/home");
+    }
+  }, [isAuthenticated, user, loading, router]);
+
+  if (loading || isAuthenticated) return null;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,4 +210,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default LoginPage;

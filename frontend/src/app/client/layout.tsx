@@ -1,25 +1,11 @@
 "use client";
 
-import { useAuthStore } from "@/store/useAuthStore";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
-
-export default function ClientRootLayout({children}: {children: React.ReactNode}) {
-    const {fetchUser, loading, isAuthenticated} = useAuthStore();
-
-    useEffect(()=>{
-        fetchUser();
-    },[fetchUser]);
-
-    if(loading) {
-        return <p>Loading...</p>;
-    }
-
-    if(!isAuthenticated) {
-        redirect("/login");
-        return null;
-    }
-
-    return <>{children}</>
+export default function ClientRootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <ProtectedRoute allowedRoles={["CLIENT"]}>{children}</ProtectedRoute>;
 }

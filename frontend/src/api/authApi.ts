@@ -23,13 +23,12 @@ interface LoginResponse {
 
 
 export const authApi = {
-  /**
-   * Login user - sets HttpOnly cookies automatically
-   */
+  
   login: (credentials: LoginCredentials) =>
     axiosInstance.post<LoginResponse>("/api/client/login", credentials),
-
-  get: () => 
-    axiosInstance.get<LoginResponse>("/api/client/me")
+  get: () =>
+    axiosInstance.get<LoginResponse>("/api/client/me"),
+  logout: () =>
+    axiosInstance.post("api/client/logout")
 }
 export default authApi;

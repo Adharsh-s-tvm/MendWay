@@ -8,7 +8,7 @@ import { UUIDGenerator } from "./infrastructure/utils/UUIDGenerator";
 import { ClientModel } from "./infrastructure/database/models/ClientModel";
 import { RegisterClientUseCase } from "./application/use-cases/RegisterClientUseCase";
 import { LoginClientUseCase } from "./application/use-cases/LoginClientUseCase";
-import { ClientController } from "./presentation/controllers/ClientController";
+import { AuthController } from "./presentation/controllers/AuthController";
 import { createClientRoutes } from "./presentation/routes/authRoutes";
 import { errorHandler } from "./presentation/middlewares/ErrorHandler";
 import { JwtTokenService } from "./infrastructure/utils/JwtTokenService";
@@ -16,6 +16,8 @@ import { IRegisterClientUseCase } from "./application/interfaces/IRegisterClient
 import { GetCurrentUserUseCase } from "./application/use-cases/GetCurrentUserUseCase";
 import { AuthMiddleware } from "./presentation/middlewares/AuthMiddleware";
 import cookieParser from "cookie-parser";
+import { ILoginClientUseCase } from "./application/interfaces/ILoginClientUseCase";
+import { IGetCurrentUserUseCase } from "./application/interfaces/IGetCurrentUserUseCase";
 
 dotenv.config();
 
@@ -53,15 +55,15 @@ async function bootstrap() {
 
   // Application
   const registerUseCase: IRegisterClientUseCase = new RegisterClientUseCase(repo, passwordHasher, idGenerator, tokenService);
-  const loginUseCase = new LoginClientUseCase(repo, passwordHasher, tokenService);
-  const getCurrentUserUseCase = new GetCurrentUserUseCase(repo);
+  const loginUseCase: ILoginClientUseCase = new LoginClientUseCase(repo, passwordHasher, tokenService);
+  const getCurrentUserUseCase: IGetCurrentUserUseCase = new GetCurrentUserUseCase(repo);
 
   // Presentation
-  const clientController = new ClientController(registerUseCase, loginUseCase, getCurrentUserUseCase, tokenService);
+  const authController = new AuthController(registerUseCase, loginUseCase, getCurrentUserUseCase);
   const authMiddleware = new AuthMiddleware(tokenService)
 
   // Routes
-  app.use("/api/client", createClientRoutes(clientController, authMiddleware));
+  app.use("/api/client", createClientRoutes(authController, authMiddleware));
 
   //Error Handler
   app.use(errorHandler);

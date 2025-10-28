@@ -1,12 +1,21 @@
-import React from 'react';
-import './globals.css'
+"use client";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+import React, { useEffect } from "react";
+import "./globals.css";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+
   return (
-    <html lang="en">
-      <body>
-     {children} 
-      </body>
-    </html>
+    <div>
+      <html lang="en">
+        <body>
+          {children}
+        </body>
+      </html>
+    </div>
   );
 }

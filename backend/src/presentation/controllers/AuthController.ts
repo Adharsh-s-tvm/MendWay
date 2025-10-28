@@ -5,12 +5,11 @@ import { ILoginClientUseCase } from "../../application/interfaces/ILoginClientUs
 import { IGetCurrentUserUseCase } from "../../application/interfaces/IGetCurrentUserUseCase";
 import { ITokenService } from "../../application/services/ITokenService";
 
-export class ClientController {
+export class AuthController {
   constructor(
     private readonly _registerClient: IRegisterClientUseCase,
     private readonly _loginClient: ILoginClientUseCase,
     private readonly _getCurrentUser: IGetCurrentUserUseCase,
-    private readonly _tokenService: ITokenService
   ) { }
 
   //  REGISTER
@@ -70,44 +69,10 @@ export class ClientController {
     }
   }
 
-
-  //  REFRESH — issue a new access token if refresh valid
-  async refresh(req: Request, res: Response) {
-    try {
-      const refreshToken = req.cookies.refreshToken;
-      if (!refreshToken) {
-        return res
-          .status(HttpStatusCode.UNAUTHORIZED)
-          .json({ message: "No refresh token provided" });
-      }
-
-      // Use the service you created!
-      const decoded = this._tokenService.verifyRefreshToken(refreshToken) as any;
-      const newAccessToken = this._tokenService.generateAccessToken({
-        id: decoded.id,
-        email: decoded.email,
-        role: decoded.role
-      });
-
-      res.cookie("accessToken", newAccessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 15 * 60 * 1000,
-      });
-
-      res.status(HttpStatusCode.OK).json({ message: "Token refreshed" });
-    } catch (error: any) {
-      res
-        .status(HttpStatusCode.FORBIDDEN)
-        .json({ message: "Invalid refresh token" });
-    }
-  }
-
   //  LOGOUT — clears cookies
   async logout(req: Request, res: Response) {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
-    res.status(HttpStatusCode.OK).json({ message: "Logged out successfully" });
+    return res.status(HttpStatusCode.OK).json({ message: "Logged out successfully" });
   }
 }
