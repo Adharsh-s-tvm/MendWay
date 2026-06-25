@@ -1,6 +1,6 @@
 import { IUserRepositoryFactory } from "../../../domain/repositories/IUserRepositoryFactory";
 import { Role } from "../../../shared/enums/authEnums";
-import { UpdateAddressDTO } from "../../dtos/AddressDTO";
+import { UpdateAddressDTO } from "../../dtos/address/AddressDTO";
 import { IEditUserAddressUseCase } from "../../interfaces/address/IEditUserAddressUseCase";
 
 export class EditUserAddressUseCase implements IEditUserAddressUseCase {

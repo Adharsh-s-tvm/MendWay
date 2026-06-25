@@ -1,5 +1,5 @@
-import { Role, VerificationStatus } from "../../shared/enums/authEnums";
-import { AddressDTO } from "./AddressDTO";
+import { Role, VerificationStatus } from "../../../shared/enums/authEnums";
+import { AddressDTO } from "../address/AddressDTO";
 
 export interface UserRequestDTO {
     user_name: string;

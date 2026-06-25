@@ -2,7 +2,7 @@ import { Service } from "../../domain/entities/Service";
 import { IServiceRepository } from "../../domain/repositories/IServiceRepository";
 import { ServiceStatus } from "../../shared/enums/serviceEnums";
 import { ServiceModel } from "../database/models/ServiceModel";
-import { UpdateVideoCallDTO } from "../../application/dtos/videoCallDTO";
+import { UpdateVideoCallDTO } from "../../application/dtos/common/videocall/videoCallDTO";
 import { FilterQuery } from "mongoose";
 
 export class ServiceRepository implements IServiceRepository {

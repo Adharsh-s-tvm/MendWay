@@ -1,4 +1,4 @@
-import { UserRequestDTO, UserResponseDTO } from "../../dtos/UserDTO";
+import { UserRequestDTO, UserResponseDTO } from "../../dtos/user/UserDTO";
 
 export interface IRegisterUserUseCase {
     execute(userData: UserRequestDTO): Promise<{

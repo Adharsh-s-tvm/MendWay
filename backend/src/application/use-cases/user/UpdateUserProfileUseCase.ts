@@ -1,6 +1,6 @@
 import { ILogger } from "../../../infrastructure/logger/ILogger";
 import { Role } from "../../../shared/enums/authEnums";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 import { UserMapper } from "../../mappers/UserMapper";
 import { User } from "../../../domain/entities/User";
 import { IUploadProfilePictureUseCase } from "../../interfaces/user/IUploadProfilePictureUseCase";

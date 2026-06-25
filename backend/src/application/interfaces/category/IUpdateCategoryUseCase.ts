@@ -1,4 +1,4 @@
-import { Category } from "../../../domain/entities/Category";
+import { CategoryResponseDTO } from "../../dtos/category/CategoryDTO";
 
 export interface IUpdateCategoryUseCase {
   execute(
@@ -7,5 +7,5 @@ export interface IUpdateCategoryUseCase {
       name: string;
       isActive: boolean;
     }
-  ): Promise<Category>;
+  ): Promise<CategoryResponseDTO>;
 }

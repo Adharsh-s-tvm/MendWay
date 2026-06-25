@@ -1,4 +1,4 @@
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 
 export interface IGetAllClientsUseCase {
     execute(): Promise<UserResponseDTO[]>;

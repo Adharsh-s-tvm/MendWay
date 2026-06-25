@@ -1,5 +1,5 @@
 import { Role } from "../../../shared/enums/authEnums";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 import { IChangeUserRoleUseCase } from "../../interfaces/user/IChangeUserRoleUseCase";
 import { ILogger } from "../../../infrastructure/logger/ILogger";
 import { UserMapper } from "../../mappers/UserMapper";

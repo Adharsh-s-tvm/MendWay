@@ -1,4 +1,4 @@
-import { LoginResponseDTO } from "../../dtos/UserDTO";
+import { LoginResponseDTO } from "../../dtos/user/UserDTO";
 
 export interface IGoogleSignUpUseCase {
     execute(

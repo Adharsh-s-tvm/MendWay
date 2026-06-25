@@ -1,4 +1,4 @@
-import { LoginUserDTO, UserRequestDTO } from "../dtos/UserDTO";
+import { LoginUserDTO, UserRequestDTO } from "../dtos/user/UserDTO";
 
 export class ValidationError extends Error {
   constructor(message: string) {

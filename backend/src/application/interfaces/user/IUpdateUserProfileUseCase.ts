@@ -1,5 +1,5 @@
 import { User } from "../../../domain/entities/User";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 
 
 export interface IUpdateUserProfileUseCase {

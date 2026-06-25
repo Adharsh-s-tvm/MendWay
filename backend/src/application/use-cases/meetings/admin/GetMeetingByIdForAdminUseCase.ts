@@ -1,11 +1,11 @@
 import { IServiceRepository } from "../../../../domain/repositories/IServiceRepository";
 import { IGetMeetingByIdForAdminUseCase } from "../../../interfaces/meetings/admin/IGetMeetingByIdForAdminUseCase";
-import { AdminServiceResponseDTO } from "../../../dtos/ServiceDTO";
+import { AdminServiceResponseDTO } from "../../../dtos/service/ServiceDTO";
 
 export class GetMeetingByIdForAdminUseCase
   implements IGetMeetingByIdForAdminUseCase {
 
-  constructor(private serviceRepository: IServiceRepository) {}
+  constructor(private serviceRepository: IServiceRepository) { }
 
   async execute(serviceId: string): Promise<AdminServiceResponseDTO> {
     const meeting = await this.serviceRepository.getMeetingByIdForAdmin(serviceId);

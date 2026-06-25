@@ -1,6 +1,6 @@
 import { User } from "../../domain/entities/User";
 import { LoginMethod, VerificationStatus } from "../../shared/enums/authEnums";
-import { UserRequestDTO, UserResponseDTO } from "../dtos/UserDTO";
+import { UserRequestDTO, UserResponseDTO } from "../dtos/user/UserDTO";
 
 export class UserMapper {
     static toDomain(userData: UserRequestDTO, hashedPassword: string, userId: string): User {

@@ -1,4 +1,4 @@
-import { SlotType } from "../../shared/enums/slotEnums";
+import { SlotType } from "../../../shared/enums/slotEnums";
 
 export interface CreateWorkerScheduleDTO {
   workerId: string;

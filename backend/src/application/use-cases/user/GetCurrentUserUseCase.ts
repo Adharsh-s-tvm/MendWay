@@ -1,5 +1,5 @@
 import { AuthenticationError, UserBlockedError, UserNotFoundError } from "../../../domain/errors/DomainError";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 import { IGetCurrentUserUseCase } from "../../interfaces/user/IGetCurrentUserUseCase";
 import { ILogger } from "../../../infrastructure/logger/ILogger";
 import { UserMapper } from "../../mappers/UserMapper";

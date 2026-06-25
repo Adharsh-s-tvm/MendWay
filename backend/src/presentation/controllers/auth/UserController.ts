@@ -10,7 +10,7 @@ import {
     UserNotFoundError
 } from "../../../domain/errors/DomainError";
 import { ResponseHandler } from "../../../shared/responses/ApiResponse";
-import { LoginResponseDTO } from "../../../application/dtos/UserDTO";
+import { LoginResponseDTO } from "../../../application/dtos/user/UserDTO";
 import { RESPONSE_MESSAGES } from "../../../shared/responses/ResponseMessages";
 
 import { Role } from "../../../shared/enums/authEnums";

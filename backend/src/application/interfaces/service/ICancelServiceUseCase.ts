@@ -1,4 +1,4 @@
-import { ServiceResponseDTO } from "../../dtos/ServiceDTO";
+import { ServiceResponseDTO } from "../../dtos/service/ServiceDTO";
 
 export interface ICancelServiceUseCase {
   execute(

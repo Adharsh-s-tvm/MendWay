@@ -1,5 +1,5 @@
-import { AddAddressDTO } from "../../dtos/AddressDTO";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { AddAddressDTO } from "../../dtos/address/AddressDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 
 export interface IAddUserAddressUseCase {
     execute(

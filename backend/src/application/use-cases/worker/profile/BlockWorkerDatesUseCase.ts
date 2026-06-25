@@ -1,7 +1,7 @@
 import { WorkerSchedule } from "../../../../domain/entities/WorkerSchedule";
 import { IWorkerScheduleRepository } from "../../../../domain/repositories/IWorkerScheduleRepository";
 import { SlotType } from "../../../../shared/enums/slotEnums";
-import { BlockWorkerDatesDTO } from "../../../dtos/WorkerScheduleDTO";
+import { BlockWorkerDatesDTO } from "../../../dtos/worker/WorkerScheduleDTO";
 import { IBlockWorkerDatesUseCase } from "../../../interfaces/worker/profile/IBlockWorkerDatesUseCase";
 
 export class BlockWorkerDatesUseCase implements IBlockWorkerDatesUseCase {

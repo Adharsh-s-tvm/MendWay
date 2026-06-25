@@ -1,6 +1,6 @@
 import { IUserRepositoryFactory } from "../../../domain/repositories/IUserRepositoryFactory";
 import { Role } from "../../../shared/enums/authEnums";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 import { IUpdateUserSkillsUseCase } from "../../interfaces/user/IUpdateUserSkillsUseCase";
 import { UserMapper } from "../../mappers/UserMapper";
 

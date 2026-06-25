@@ -1,6 +1,6 @@
 import { IUserRepositoryFactory } from "../../../domain/repositories/IUserRepositoryFactory";
 import { Role } from "../../../shared/enums/authEnums";
-import { AddAddressDTO } from "../../dtos/AddressDTO";
+import { AddAddressDTO } from "../../dtos/address/AddressDTO";
 import { IAddUserAddressUseCase } from "../../interfaces/address/IUpdateUserAddressUseCase";
 import { UserMapper } from "../../mappers/UserMapper";
 import { randomUUID } from "crypto";

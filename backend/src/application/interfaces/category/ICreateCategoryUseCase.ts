@@ -1,5 +1,5 @@
-import { Category } from "../../../domain/entities/Category";
+import { CategoryResponseDTO } from "../../dtos/category/CategoryDTO";
 
 export interface ICreateCategoryUseCase {
-    execute(name: string): Promise<Category>;
+    execute(name: string): Promise<CategoryResponseDTO>;
 }

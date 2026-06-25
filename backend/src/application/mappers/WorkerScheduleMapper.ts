@@ -1,5 +1,5 @@
 import { WorkerSchedule } from "../../domain/entities/WorkerSchedule";
-import { WorkerScheduleDTO } from "../dtos/WorkerScheduleDTO";
+import { WorkerScheduleDTO } from "../dtos/worker/WorkerScheduleDTO";
 
 export class WorkerScheduleMapper {
   static toDTO(entity: WorkerSchedule): WorkerScheduleDTO {

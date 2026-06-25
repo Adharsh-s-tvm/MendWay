@@ -12,7 +12,7 @@ import { IRefreshTokenUseCase } from "../../../application/interfaces/auth/IRefr
 import { IValidateUserUseCase } from "../../../application/interfaces/auth/IValidateUserUseCase";
 import { ResponseHandler } from "../../../shared/responses/ApiResponse";
 import { RESPONSE_MESSAGES } from "../../../shared/responses/ResponseMessages";
-import { UserRequestDTO } from "../../../application/dtos/UserDTO";
+import { UserRequestDTO } from "../../../application/dtos/user/UserDTO";
 import { IChangePasswordUseCase } from "../../../application/interfaces/auth/IChangePasswordUseCase";
 
 export class AuthController implements IAuthController {
@@ -285,7 +285,7 @@ export class AuthController implements IAuthController {
       const result = await this._validateUserUseCase.execute(userId);
 
       if (!result.success) {
-        res.status(HttpStatusCode.OK).json({ 
+        res.status(HttpStatusCode.OK).json({
           success: false,
           message: result.message
         });

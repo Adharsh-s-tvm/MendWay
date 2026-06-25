@@ -1,5 +1,5 @@
 import { IClientRepository } from "../../../domain/repositories/IClientRepository";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 import { IGetAllClientsUseCase } from "../../interfaces/admin/IGetAllClientsUseCase";
 import { UserMapper } from "../../mappers/UserMapper";
 

@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../../shared/enums/httpCodes";
 import { IGoogleAuthController } from "../../interfaces/IGoogleAuthController";
 import { ResponseHandler } from "../../../shared/responses/ApiResponse";
 import { RESPONSE_MESSAGES } from "../../../shared/responses/ResponseMessages";
-import { LoginResponseDTO } from "../../../application/dtos/UserDTO";
+import { LoginResponseDTO } from "../../../application/dtos/user/UserDTO";
 
 import { Role } from "../../../shared/enums/authEnums";
 

@@ -1,4 +1,4 @@
-import { UpdateAddressDTO } from "../../dtos/AddressDTO";
+import { UpdateAddressDTO } from "../../dtos/address/AddressDTO";
 
 export interface IEditUserAddressUseCase {
   execute(

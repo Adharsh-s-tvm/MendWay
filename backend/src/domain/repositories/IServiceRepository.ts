@@ -1,4 +1,4 @@
-import { UpdateVideoCallDTO } from "../../application/dtos/videoCallDTO";
+import { UpdateVideoCallDTO } from "../../application/dtos/common/videocall/videoCallDTO";
 import { Service } from "../entities/Service";
 
 export interface IServiceRepository {

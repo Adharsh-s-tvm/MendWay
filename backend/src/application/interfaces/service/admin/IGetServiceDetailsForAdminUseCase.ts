@@ -1,4 +1,4 @@
-import { AdminServiceResponseDTO } from "../../../dtos/ServiceDTO";
+import { AdminServiceResponseDTO } from "../../../dtos/service/ServiceDTO";
 
 
 export interface IGetServiceDetailsForAdminUseCase {

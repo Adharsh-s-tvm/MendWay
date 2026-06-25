@@ -7,7 +7,7 @@ import { IPasswordHasher } from "../../contracts/IPasswordHasher";
 import { ITokenService } from "../../contracts/ITokenService";
 import { IUserRepositoryFactory } from "../../../domain/repositories/IUserRepositoryFactory";
 import { UserBlockedError } from "../../../domain/errors/DomainError";
-import { LoginResponseDTO } from "../../dtos/UserDTO";
+import { LoginResponseDTO } from "../../dtos/user/UserDTO";
 
 export class GoogleSignUpUseCase implements IGoogleSignUpUseCase {
     constructor(

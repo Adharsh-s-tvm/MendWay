@@ -1,12 +1,12 @@
 import { IServiceRepository } from "../../../../domain/repositories/IServiceRepository";
 import { IGetServiceDetailsForAdminUseCase } from "../../../interfaces/service/admin/IGetServiceDetailsForAdminUseCase";
-import { AdminServiceResponseDTO } from "../../../dtos/ServiceDTO";
+import { AdminServiceResponseDTO } from "../../../dtos/service/ServiceDTO";
 
 export class GetServiceDetailsForAdminUseCase implements IGetServiceDetailsForAdminUseCase {
 
     constructor(
         private readonly _serviceRepo: IServiceRepository
-    ) {}
+    ) { }
 
     async execute(serviceId: string): Promise<AdminServiceResponseDTO> {
 

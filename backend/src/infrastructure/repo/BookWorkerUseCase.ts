@@ -1,4 +1,4 @@
-import { CreateServiceDTO, ServiceResponseDTO } from "../../application/dtos/ServiceDTO";
+import { CreateServiceDTO, ServiceResponseDTO } from "../../application/dtos/service/ServiceDTO";
 import { ServiceMapper } from "../../application/mappers/ServiceMapper";
 import { IBookWorkerUseCase } from "../../domain/repositories/IBookWorkerUseCase";
 import { IServiceRepository } from "../../domain/repositories/IServiceRepository";

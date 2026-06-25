@@ -1,4 +1,4 @@
-import { Category } from "../../../domain/entities/Category";
+import { CategoryResponseDTO } from "../../dtos/category/CategoryDTO";
 
 export interface IGetAllCategoriesUseCase {
     execute(options?: {
@@ -8,7 +8,7 @@ export interface IGetAllCategoriesUseCase {
         sortBy?: string;
         sortOrder?: "asc" | "desc";
     }): Promise<{
-        categories: Category[];
+        categories: CategoryResponseDTO[];
         total: number;
         activeCount: number;
         inactiveCount: number;

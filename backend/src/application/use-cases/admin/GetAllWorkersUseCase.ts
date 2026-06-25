@@ -1,5 +1,5 @@
 import { IWorkerRepository } from "../../../domain/repositories/IWorkerRepository";
-import { UserResponseDTO } from "../../dtos/UserDTO";
+import { UserResponseDTO } from "../../dtos/user/UserDTO";
 import { IGetAllWorkersUseCase } from "../../interfaces/admin/IGetAllWorkersUseCase";
 import { UserMapper } from "../../mappers/UserMapper";
 

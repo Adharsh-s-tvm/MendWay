@@ -1,5 +1,5 @@
 import { InvalidCredentialsError, UserBlockedError } from "../../../domain/errors/DomainError";
-import { LoginUserDTO, UserResponseDTO } from "../../dtos/UserDTO";
+import { LoginUserDTO, UserResponseDTO } from "../../dtos/user/UserDTO";
 import { ILogger } from "../../../infrastructure/logger/ILogger";
 import { ILoginUserUseCase } from "../../interfaces/auth/ILoginUserUseCase";
 import { UserMapper } from "../../mappers/UserMapper";

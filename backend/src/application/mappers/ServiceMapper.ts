@@ -2,7 +2,7 @@ import { Service } from "../../domain/entities/Service";
 import { ServiceStatus } from "../../shared/enums/serviceEnums";
 import { PaymentStatus } from "../../shared/enums/paymentEnums";
 import { v4 as uuidv4 } from "uuid";
-import { CreateServiceDTO, ServiceResponseDTO } from "../dtos/ServiceDTO";
+import { CreateServiceDTO, ServiceResponseDTO } from "../dtos/service/ServiceDTO";
 import { getVideoSlotTime } from "../../utils/getVideoSlotTime";
 
 export class ServiceMapper {
@@ -105,19 +105,19 @@ export class ServiceMapper {
       updatedAt: service.updatedAt,
       videoCall: service.videoCall
         ? {
-            roomId: service.videoCall.roomId,
-            // Booked times (scheduled at booking creation)
-            startTime: service.videoCall.startTime,
-            endTime: service.videoCall.endTime,
-            meetingLink: service.videoCall.meetingLink,
-            status: service.videoCall.status,
-            // Actual times (recorded during the live session)
-            actualStartTime: service.videoCall.actualStartTime,  // First-join, never cleared
-            startedAt: service.videoCall.startedAt,              // Rolling segment tracker
-            endedAt: service.videoCall.endedAt,
-            duration: service.videoCall.duration,
-            accumulatedDuration: service.videoCall.accumulatedDuration,
-          }
+          roomId: service.videoCall.roomId,
+          // Booked times (scheduled at booking creation)
+          startTime: service.videoCall.startTime,
+          endTime: service.videoCall.endTime,
+          meetingLink: service.videoCall.meetingLink,
+          status: service.videoCall.status,
+          // Actual times (recorded during the live session)
+          actualStartTime: service.videoCall.actualStartTime,  // First-join, never cleared
+          startedAt: service.videoCall.startedAt,              // Rolling segment tracker
+          endedAt: service.videoCall.endedAt,
+          duration: service.videoCall.duration,
+          accumulatedDuration: service.videoCall.accumulatedDuration,
+        }
         : undefined,
     };
   }

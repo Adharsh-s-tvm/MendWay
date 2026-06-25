@@ -1,7 +1,7 @@
 import { WorkerSchedule } from "../../../../domain/entities/WorkerSchedule";
 import { IWorkerScheduleRepository } from "../../../../domain/repositories/IWorkerScheduleRepository";
 import { SlotType } from "../../../../shared/enums/slotEnums";
-import { CreateWorkerScheduleDTO, WorkerScheduleDTO } from "../../../dtos/WorkerScheduleDTO";
+import { CreateWorkerScheduleDTO, WorkerScheduleDTO } from "../../../dtos/worker/WorkerScheduleDTO";
 import { ICreateWorkerScheduleUseCase } from "../../../interfaces/worker/profile/ICreateWorkerScheduleUseCase";
 import { WorkerScheduleMapper } from "../../../mappers/WorkerScheduleMapper";
 

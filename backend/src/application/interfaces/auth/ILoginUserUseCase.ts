@@ -1,4 +1,4 @@
-import { LoginUserDTO, UserResponseDTO } from "../../dtos/UserDTO";
+import { LoginUserDTO, UserResponseDTO } from "../../dtos/user/UserDTO";
 
 export interface ILoginUserUseCase {
     execute(data: LoginUserDTO): Promise<{

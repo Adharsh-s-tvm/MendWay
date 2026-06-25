@@ -9,7 +9,7 @@ import { ServiceStatus } from "../../../shared/enums/serviceEnums";
 import { PaymentStatus } from "../../../shared/enums/paymentEnums";
 import { transactionSource, transactionStatus, transactionType } from "../../../shared/enums/transactionEnums";
 import { ServiceMapper } from "../../mappers/ServiceMapper";
-import { ServiceResponseDTO } from "../../dtos/ServiceDTO";
+import { ServiceResponseDTO } from "../../dtos/service/ServiceDTO";
 
 /**
  * Refund tiers (measured from booking creation time):
@@ -20,10 +20,10 @@ import { ServiceResponseDTO } from "../../dtos/ServiceDTO";
  */
 function getRefundPercentage(diffInMs: number): number {
     const FIFTEEN_MIN = 15 * 60 * 1000;
-    const ONE_HOUR    = 60 * 60 * 1000;
+    const ONE_HOUR = 60 * 60 * 1000;
 
     if (diffInMs < FIFTEEN_MIN) return 100;
-    if (diffInMs < ONE_HOUR)    return 90;
+    if (diffInMs < ONE_HOUR) return 90;
     return 50;
 }
 
@@ -123,7 +123,7 @@ export class CancelServiceUseCase implements ICancelServiceUseCase {
                         if (adminWallet) {
                             try {
                                 const updatedAdminWallet = await this._walletRepo.debitBalance(admin.userId, refundAmount);
-                                
+
                                 await this._transactionRepo.create({
                                     transactionId: `txn_refund_debit_${serviceId}_${String(Date.now())}`,
                                     walletId: updatedAdminWallet.walletId,
@@ -166,7 +166,7 @@ export class CancelServiceUseCase implements ICancelServiceUseCase {
             await this._sendNotification.execute({
                 userId: targetUserId,
                 title: isVideoCall ? "Meeting Cancelled" : "Service Cancelled",
-                message: isVideoCall 
+                message: isVideoCall
                     ? `The video call (ID: ${serviceId}) has been cancelled by the ${cancellerRole}.`
                     : `The service (ID: ${serviceId}) has been cancelled by the ${cancellerRole}.`,
                 type: isVideoCall ? "MEETING_CANCELLED" : "SERVICE_CANCELLED",

@@ -1,6 +1,6 @@
 import { UserAlreadyExistsError } from "../../../domain/errors/DomainError";
 import { LoginMethod } from "../../../shared/enums/authEnums";
-import { UserRequestDTO, UserResponseDTO } from "../../dtos/UserDTO";
+import { UserRequestDTO, UserResponseDTO } from "../../dtos/user/UserDTO";
 import { User } from "../../../domain/entities/User";
 import { ILogger } from "../../../infrastructure/logger/ILogger";
 import { IRegisterUserUseCase } from "../../interfaces/auth/IRegisterUserUseCase";
