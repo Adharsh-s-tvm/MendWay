@@ -1,4 +1,5 @@
-import { Worker } from "../../../domain/entities/Worker";
+import { WorkerResponseDTO } from "../../dtos/worker/WorkerDTO";
+
 
 export interface IGetAvailableWorkersUseCase {
   execute(
@@ -10,5 +11,5 @@ export interface IGetAvailableWorkersUseCase {
     page?: number,
     limit?: number,
     sortBy?: string
-  ): Promise<{ workers: Worker[]; total: number }>;
+  ): Promise<{ workers: WorkerResponseDTO[]; total: number }>;
 }

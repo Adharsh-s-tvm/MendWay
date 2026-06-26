@@ -6,6 +6,7 @@ import { User } from "../../../domain/entities/User";
 import { IUploadProfilePictureUseCase } from "../../interfaces/user/IUploadProfilePictureUseCase";
 import { IUserRepositoryFactory } from "../../../domain/repositories/IUserRepositoryFactory";
 import { IUpdateUserProfileUseCase } from "../../interfaces/user/IUpdateUserProfileUseCase";
+import { ValidationError } from "../../validators/AuthValidator";
 
 export class UpdateUserProfileUseCase implements IUpdateUserProfileUseCase {
 
@@ -37,6 +38,16 @@ export class UpdateUserProfileUseCase implements IUpdateUserProfileUseCase {
         }
 
         if (!user) throw new Error("User not found");
+
+        if (updates.phone !== undefined && updates.phone !== null) {
+            const phoneStr = String(updates.phone).trim();
+            if (!/^\d{10,15}$/.test(phoneStr)) {
+                throw new ValidationError("Phone number must be a valid 10 to 15 digit number");
+            }
+            if (/^0+$/.test(phoneStr)) {
+                throw new ValidationError("Phone number cannot consist of all zeroes");
+            }
+        }
 
         const updatedUser: Partial<User> = { ...user, ...updates };
 

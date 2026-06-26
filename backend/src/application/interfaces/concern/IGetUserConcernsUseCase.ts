@@ -1,5 +1,5 @@
-import { Concern } from "../../../domain/entities/Concern";
+import { ConcernResponseDTO } from "../../dtos/concern/ConcernDTO";
 
 export interface IGetUserConcernsUseCase {
-  execute(userId: string): Promise<Concern[]>;
+  execute(userId: string): Promise<ConcernResponseDTO[]>;
 }

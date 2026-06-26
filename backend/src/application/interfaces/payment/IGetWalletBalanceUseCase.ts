@@ -1,5 +1,5 @@
-import { Wallet } from "../../../domain/entities/Wallet";
+import { WalletResponseDTO } from "../../dtos/wallet/WalletDTO";
 
 export interface IGetWalletBalanceUseCase {
-    execute(userId: string): Promise<Wallet>;
+    execute(userId: string): Promise<WalletResponseDTO>;
 }

@@ -1,5 +1,5 @@
-import { Worker } from "../../../domain/entities/Worker";
+import { WorkerResponseDTO } from "../../dtos/worker/WorkerDTO";
 
 export interface IGetWorkerByIdUseCase {
-  execute(id: string): Promise<Worker | null>;
+  execute(id: string): Promise<WorkerResponseDTO | null>;
 }

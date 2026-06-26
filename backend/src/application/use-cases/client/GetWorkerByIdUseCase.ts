@@ -4,10 +4,53 @@ import { ICategoryRepository } from "../../../domain/repositories/ICategoryRepos
 import { IReviewRepository } from "../../../domain/repositories/IReviewRepository";
 import { IUserRepositoryFactory } from "../../../domain/repositories/IUserRepositoryFactory";
 import { S3Service } from "../../../infrastructure/adapters/S3service";
-import { Role } from "../../../shared/enums/authEnums";
+import { Role, VerificationStatus } from "../../../shared/enums/authEnums";
+import { IGetWorkerByIdUseCase } from "../../interfaces/client/IGetWorkerByIdUseCase";
+import { WorkerResponseDTO } from "../../dtos/worker/WorkerDTO";
+import { AddressDTO } from "../../dtos/address/AddressDTO";
 
-export interface IGetWorkerByIdUseCase {
-  execute(id: string): Promise<Worker | null>;
+function workerToDTO(worker: Worker): WorkerResponseDTO {
+  const address: AddressDTO[] | undefined = worker.address?.map((a) => ({
+    addressId: a.addressId,
+    label: a.label,
+    street: a.street,
+    city: a.city,
+    state: a.state,
+    country: a.country,
+    zip: a.zip,
+    lat: a.location.coordinates[1],
+    lng: a.location.coordinates[0],
+    isDefault: a.isDefault,
+  }));
+
+  return {
+    user_id: worker.userId,
+    user_name: worker.name,
+    email_address: worker.email,
+    phone_number: worker.phone,
+    user_role: worker.role,
+    profileImageUrl: worker.profilePictureUrl,
+    isBlocked: worker.isBlocked ?? false,
+    isOnline: worker.isOnline,
+    isVerified: worker.isVerified ?? VerificationStatus.PENDING,
+    skills: worker.skills,
+    address,
+    documents: worker.documents,
+    certificates: worker.certificates,
+    excludedServices: worker.excludedServices,
+    categories: worker.categories,
+    workPhotos: worker.workPhotos,
+    rating: worker.rating,
+    totalRatings: worker.totalRatings,
+    weeklyJobCount: worker.weeklyJobCount,
+    currentActiveRequestId: worker.currentActiveRequestId ?? undefined,
+    isSuspended: worker.isSuspended,
+    suspensionStartDate: worker.suspensionStartDate?.toISOString(),
+    suspensionEndDate: worker.suspensionEndDate?.toISOString(),
+    canAcceptBookings: worker.canAcceptBookings,
+    createdAt: worker.createdAt.toISOString(),
+    updatedAt: worker.updatedAt.toISOString(),
+  };
 }
 
 export class GetWorkerByIdUseCase implements IGetWorkerByIdUseCase {
@@ -19,7 +62,7 @@ export class GetWorkerByIdUseCase implements IGetWorkerByIdUseCase {
     private readonly _s3Service: S3Service
   ) { }
 
-  async execute(id: string): Promise<Worker | null> {
+  async execute(id: string): Promise<WorkerResponseDTO | null> {
     const worker = await this._workerRepository.findById(id);
 
     if (!worker) return null;
@@ -72,12 +115,12 @@ export class GetWorkerByIdUseCase implements IGetWorkerByIdUseCase {
     if (worker.profilePictureUrl && !worker.profilePictureUrl.startsWith('http')) {
       try {
         const presignedUrl = await this._s3Service.getPresignedDownloadUrl(worker.profilePictureUrl);
-        return { ...worker, profilePictureUrl: presignedUrl };
+        return workerToDTO({ ...worker, profilePictureUrl: presignedUrl });
       } catch (error) {
         console.error(`Error generating presigned URL for worker ${worker.userId}:`, error);
       }
     }
 
-    return worker;
+    return workerToDTO(worker);
   }
 }

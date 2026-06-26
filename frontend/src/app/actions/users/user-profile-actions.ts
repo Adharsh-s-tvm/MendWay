@@ -60,6 +60,13 @@ export async function updateUserProfileAction(userId: string, updates: ProfileUp
       };
     }
 
+    if (/^0+$/.test(phone)) {
+      return {
+        success: false,
+        message: "Phone number cannot consist of all zeroes",
+      };
+    }
+
     fd.append("phone", phone);
   }
 

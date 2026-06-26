@@ -1,5 +1,5 @@
-import { Concern } from "../../../domain/entities/Concern";
 import { concernBy } from "../../../shared/enums/concernEnums";
+import { ConcernResponseDTO } from "../../dtos/concern/ConcernDTO";
 
 export interface ICreateConcernUseCase {
   execute(
@@ -8,5 +8,5 @@ export interface ICreateConcernUseCase {
     role: concernBy,
     message: string,
     files?: { path: string; mimetype: string; originalname: string }[]
-  ): Promise<Concern>;
+  ): Promise<ConcernResponseDTO>;
 }

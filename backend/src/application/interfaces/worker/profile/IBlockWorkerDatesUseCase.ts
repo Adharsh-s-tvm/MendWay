@@ -1,6 +1,5 @@
-import { WorkerSchedule } from "../../../../domain/entities/WorkerSchedule";
-import { BlockWorkerDatesDTO } from "../../../dtos/worker/WorkerScheduleDTO";
+import { BlockWorkerDatesDTO, WorkerScheduleDTO } from "../../../dtos/worker/WorkerScheduleDTO";
 
 export interface IBlockWorkerDatesUseCase {
-  execute(dto: BlockWorkerDatesDTO): Promise<WorkerSchedule[]>;
+  execute(dto: BlockWorkerDatesDTO): Promise<WorkerScheduleDTO[]>;
 }

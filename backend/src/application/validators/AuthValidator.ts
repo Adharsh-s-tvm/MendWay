@@ -34,7 +34,9 @@ export class AuthValidator {
     this.validatePassword(data.password);
 
     if (data.phone_number && !this._isValidPhone(data.phone_number)) {
-      throw new ValidationError("Invalid phone number");
+      throw new ValidationError(
+        "Phone number must be a valid 10-15 digit number and cannot consist of all zeroes"
+      );
     }
   }
 
@@ -63,8 +65,14 @@ export class AuthValidator {
   }
 
   /** Phone validation */
-  private static _isValidPhone(phone: number): boolean {
-    const phoneStr = phone.toString();
-    return phoneStr.length >= 10 && phoneStr.length <= 15;
+  private static _isValidPhone(phone: number | string): boolean {
+    const phoneStr = String(phone).trim();
+    if (!/^\d{10,15}$/.test(phoneStr)) {
+      return false;
+    }
+    if (/^0+$/.test(phoneStr)) {
+      return false;
+    }
+    return true;
   }
 }

@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
+    "ignoreDeprecations": "6.0",
     "types": ["node"]
   },
   "include": ["src/**/*", "eslint.config.mjs"],

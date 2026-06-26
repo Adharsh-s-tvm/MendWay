@@ -1,8 +1,8 @@
-import { Transaction } from "../../../domain/entities/Transaction";
+import { TransactionResponseDTO } from "../../dtos/wallet/TransactionDTO";
 
 export interface IGetTransactionsUseCase {
   execute(userId: string, page: number, limit: number): Promise<{
-    transactions: Transaction[];
+    transactions: TransactionResponseDTO[];
     total: number;
     totalPages: number;
   }>;

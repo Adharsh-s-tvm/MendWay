@@ -1,5 +1,5 @@
-import { Concern } from "../../../domain/entities/Concern";
+import { ConcernResponseDTO } from "../../dtos/concern/ConcernDTO";
 
 export interface IResolveConcernUseCase {
-  execute(concernId: string, resolutionMessage: string, adminId?: string): Promise<Concern | null>;
+  execute(concernId: string, resolutionMessage: string, adminId?: string): Promise<ConcernResponseDTO | null>;
 }

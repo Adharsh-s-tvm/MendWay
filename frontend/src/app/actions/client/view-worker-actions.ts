@@ -2,6 +2,7 @@
 
 import { getAvailableWorkersApi, getWorkerDetailApi } from "@/sources/api/client/view.worker.api";
 import { User } from "@/shared/types/userTypes";
+import { mapUserFromApi } from "@/shared/mappers/user.mapper";
 
 export async function getAvailableWorkersAction(
     category?: string,
@@ -20,7 +21,7 @@ export async function getAvailableWorkersAction(
         }
         return { 
             success: true, 
-            workers: workerResponse.payload?.workers, 
+            workers: (workerResponse.payload?.workers || []).map(mapUserFromApi), 
             total: workerResponse.payload?.total 
         };
     } catch (error: unknown) {
@@ -37,7 +38,10 @@ export async function getWorkerDetailAction(
         if (!workerResponse.success) {
             return { success: false, error: workerResponse.message };
         }
-        return { success: true, data: workerResponse.payload };
+        return { 
+            success: true, 
+            data: workerResponse.payload ? mapUserFromApi(workerResponse.payload) : undefined 
+        };
     } catch (error: unknown) {
         console.error(`Failed to fetch worker detail for id ${id}`, error);
         return { success: false, error: (error instanceof Error ? error.message : undefined) || "Failed to fetch worker details" };
