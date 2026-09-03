@@ -140,7 +140,10 @@ export async function updateUserProfileAction(userId: string, updates: ProfileUp
 }
 
 
-export async function uploadDocumentAction(userId: string, file: File): Promise<{ success: boolean; url?: string; error?: string }> {
+export async function uploadDocumentAction(
+  userId: string,
+  file: File
+): Promise<{ success: boolean; url?: string; error?: string }> {
   try {
     const token = (await cookies()).get("accessToken")?.value;
 
@@ -158,24 +161,39 @@ export async function uploadDocumentAction(userId: string, file: File): Promise<
       }
     );
 
-    return { success: true, url: res.data.url };
+    return {
+      success: true,
+      url: res.data.payload.url,
+    };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 413) {
         return {
           success: false,
-          error: "File is too large for the backend server to process. Please try a smaller file.",
+          error:
+            "File is too large for the backend server to process. Please try a smaller file.",
         };
       }
-      const serverMessage = error.response?.data?.message || error.response?.data?.error;
+
+      const serverMessage =
+        error.response?.data?.message ||
+        error.response?.data?.error;
+
       return {
         success: false,
-        error: serverMessage || `Upload failed with status code ${error.response?.status || "Network Error"}`,
+        error:
+          serverMessage ||
+          `Upload failed with status code ${error.response?.status || "Network Error"
+          }`,
       };
     }
+
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Document upload failed",
+      error:
+        error instanceof Error
+          ? error.message
+          : "Document upload failed",
     };
   }
 }
