@@ -20,6 +20,7 @@ import DataTable, {
 import { Category, CategoryInput } from "@/shared/types/categoryTypes";
 import {
   getAllCategoriesAction,
+  createCategoryAction,
   updateCategoryAction,
   toggleCategoryStatusAction,
 } from "@/app/actions/admin/category-actions";
@@ -114,7 +115,17 @@ const CategoriesPage = () => {
           return;
         }
 
-        toast.success(`Category ${selectedCategory ? "updated" : "created"} successfully`);
+        toast.success("Category updated successfully");
+        fetchCategories();
+      } else {
+        const res = await createCategoryAction(data);
+
+        if (!res.success) {
+          toast.error(res.message);
+          return;
+        }
+
+        toast.success("Category created successfully");
         fetchCategories();
       }
 
