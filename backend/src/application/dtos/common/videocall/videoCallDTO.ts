@@ -2,6 +2,7 @@ export interface UpdateVideoCallDTO {
   roomId: string;
   startTime: Date;
   endTime: Date;
+  bookingTime?: Date;
 
   meetingLink?: string;
   status?: string;

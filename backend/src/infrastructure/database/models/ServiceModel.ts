@@ -65,6 +65,7 @@ export interface IServiceDocument extends Document {
     roomId: string;
     startTime: Date;
     endTime: Date;
+    bookingTime?: Date;
     meetingLink?: string;
     status?: VideoCallStatus;
     joinedUsers?: string[];
@@ -181,6 +182,7 @@ const ServiceSchema = new Schema<IServiceDocument>(
       roomId: String,
       startTime: Date,
       endTime: Date,
+      bookingTime: Date,
       meetingLink: String,
       status: { type: String, enum: Object.values(VideoCallStatus) },
       joinedUsers: [String],

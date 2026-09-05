@@ -65,6 +65,7 @@ export interface Service {
     roomId: string;
     startTime: Date;       // Booked start time
     endTime: Date;         // Booked end time
+    bookingTime?: Date;    // Exact timestamp when booking was created
     meetingLink?: string;
 
     status?: VideoCallStatus

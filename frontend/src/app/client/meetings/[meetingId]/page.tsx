@@ -356,9 +356,12 @@ export default async function ClientMeetingDetailPage({ params }: { params: Prom
               <span className="font-medium text-slate-700">{meeting.category.replace(/_/g, " ")}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Booked on</span>
+              <span className="text-slate-400">Exact Booking Time</span>
               <span className="font-medium text-slate-700">
-                {new Date(meeting.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                {new Date(meeting.videoCall?.bookingTime || meeting.createdAt).toLocaleString("en-US", {
+                  month: "short", day: "numeric", year: "numeric",
+                  hour: "2-digit", minute: "2-digit", second: "2-digit"
+                })}
               </span>
             </div>
           </div>

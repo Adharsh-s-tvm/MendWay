@@ -47,13 +47,21 @@ export class EndVideoCallUseCase implements IEndVideoCallUseCase {
       };
     }
 
-    const endedAt = new Date();
+    const now = new Date();
     let totalSeconds = service.videoCall.accumulatedDuration ?? 0;
+    let finalEndedAt: Date;
 
     // Use the rolling segment tracker (startedAt) to add the final segment's duration
     if (service.videoCall.startedAt) {
-      const segmentMs = endedAt.getTime() - new Date(service.videoCall.startedAt).getTime();
+      finalEndedAt = now;
+      const segmentMs = now.getTime() - new Date(service.videoCall.startedAt).getTime();
       totalSeconds += Math.floor(segmentMs / 1000);
+    } else if (service.videoCall.endedAt) {
+      finalEndedAt = new Date(service.videoCall.endedAt);
+    } else if (service.videoCall.actualStartTime && totalSeconds > 0) {
+      finalEndedAt = new Date(new Date(service.videoCall.actualStartTime).getTime() + totalSeconds * 1000);
+    } else {
+      finalEndedAt = now;
     }
 
     const duration = totalSeconds > 0 ? formatDuration(totalSeconds) : "0s";
@@ -64,7 +72,7 @@ export class EndVideoCallUseCase implements IEndVideoCallUseCase {
       // actualStartTime = permanent first-join time, preserved in history
       actualStartTime: service.videoCall.actualStartTime,
       startedAt: null,  // Clear the segment tracker — session is over
-      endedAt,
+      endedAt: finalEndedAt,
       duration,
       accumulatedDuration: totalSeconds,
     };

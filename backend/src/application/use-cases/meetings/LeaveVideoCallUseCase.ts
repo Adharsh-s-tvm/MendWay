@@ -29,6 +29,7 @@ export class LeaveVideoCallUseCase implements ILeaveVideoCallUseCase {
     await this.serviceRepository.updateVideoCall(serviceId, {
       ...service.videoCall,
       startedAt: null, // Clear startedAt as the segment ended
+      endedAt: now,    // Record exact timestamp when participant left session
       accumulatedDuration,
     });
 

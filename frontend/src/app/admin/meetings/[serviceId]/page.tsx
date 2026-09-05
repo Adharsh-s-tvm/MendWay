@@ -248,22 +248,53 @@ const AdminMeetingDetailsPage = () => {
                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest">Meeting Type</h3>
              </div>
              
-             <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-2">
-               <div>
-                 <span className="text-[10px] text-gray-500 uppercase tracking-wider font-bold block mb-0.5">Mode</span>
-                 <p className="text-gray-700 font-mono text-sm break-all font-bold">
-                    Virtual Video Call
-                 </p>
-               </div>
-               {meeting.videoCall?.duration && (
-                 <div>
-                   <span className="text-[10px] text-emerald-500 uppercase tracking-wider font-bold block mb-0.5">Actual Duration</span>
-                   <p className="text-emerald-700 font-bold text-sm">
-                      {meeting.videoCall.duration}
-                   </p>
-                 </div>
-               )}
-             </div>
+              <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-2">
+                <div>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wider font-bold block mb-0.5">Mode</span>
+                  <p className="text-gray-700 font-mono text-sm break-all font-bold">
+                     Virtual Video Call
+                  </p>
+                </div>
+                <div>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wider font-bold block mb-0.5">Exact Booking Time</span>
+                  <p className="text-gray-800 text-xs font-semibold">
+                    {new Date(meeting.videoCall?.bookingTime || meeting.createdAt).toLocaleString("en-US", {
+                      month: "short", day: "numeric", year: "numeric",
+                      hour: "2-digit", minute: "2-digit", second: "2-digit"
+                    })}
+                  </p>
+                </div>
+                {meeting.videoCall?.actualStartTime && (
+                  <div>
+                    <span className="text-[10px] text-purple-600 uppercase tracking-wider font-bold block mb-0.5">Actual Start Time</span>
+                    <p className="text-purple-900 text-xs font-semibold">
+                      {new Date(meeting.videoCall.actualStartTime).toLocaleString("en-US", {
+                        month: "short", day: "numeric", year: "numeric",
+                        hour: "2-digit", minute: "2-digit"
+                      })}
+                    </p>
+                  </div>
+                )}
+                {meeting.videoCall?.endedAt && (
+                  <div>
+                    <span className="text-[10px] text-purple-600 uppercase tracking-wider font-bold block mb-0.5">Actual End Time</span>
+                    <p className="text-purple-900 text-xs font-semibold">
+                      {new Date(meeting.videoCall.endedAt).toLocaleString("en-US", {
+                        month: "short", day: "numeric", year: "numeric",
+                        hour: "2-digit", minute: "2-digit"
+                      })}
+                    </p>
+                  </div>
+                )}
+                {meeting.videoCall?.duration && (
+                  <div>
+                    <span className="text-[10px] text-emerald-500 uppercase tracking-wider font-bold block mb-0.5">Actual Duration</span>
+                    <p className="text-emerald-700 font-bold text-sm">
+                       {meeting.videoCall.duration}
+                    </p>
+                  </div>
+                )}
+              </div>
           </div>
 
         </div>

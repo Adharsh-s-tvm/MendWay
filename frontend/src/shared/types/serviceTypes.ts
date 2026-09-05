@@ -165,6 +165,7 @@ export interface ServiceResponseDTO {
     // Booked times (set at booking creation)
     startTime?: string | Date;
     endTime?: string | Date;
+    bookingTime?: string | Date;
     joinUrl?: string;
     meetingLink?: string;
     status?: string;
@@ -235,6 +236,7 @@ export interface AdminServiceResponseDTO {
     // Booked times (set at booking creation)
     startTime?: string | Date;
     endTime?: string | Date;
+    bookingTime?: string | Date;
     meetingLink?: string;
     status?: string;
     // Actual times (recorded during live session)

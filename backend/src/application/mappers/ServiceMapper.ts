@@ -24,7 +24,8 @@ export class ServiceMapper {
       videoCall = {
         roomId: `room_${uuidv4()}`,
         startTime: start,
-        endTime: end
+        endTime: end,
+        bookingTime: new Date()
       };
     }
 
@@ -109,6 +110,7 @@ export class ServiceMapper {
           // Booked times (scheduled at booking creation)
           startTime: service.videoCall.startTime,
           endTime: service.videoCall.endTime,
+          bookingTime: service.videoCall.bookingTime ?? service.createdAt,
           meetingLink: service.videoCall.meetingLink,
           status: service.videoCall.status,
           // Actual times (recorded during the live session)
